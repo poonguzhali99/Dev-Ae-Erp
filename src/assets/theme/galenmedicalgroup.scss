@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+.galenmedicalgroup {
+	// .jaishu {
+	$primary: #1d1060;
+	$green: #61ce70;
+	$secondary: #605e5c;
+	$light: #f3f2f1;
+	$dark: #323130;
+	$danger: #eb5757;
+	$transparent: transparent;
+	$bg: #f4f5fa;
+	$success: #28a746;
+	$warning: #ffc107;
+	$white: #ffffff;
+	$muted: #6c757d;
+
+	font-family: "Raleway";
+	.form-control {
+		background-color: transparent;
+		border-width: 1px;
+		border-color: $muted;
+		border-radius: 5px;
+		color: $primary !important;
+	}
+	.participants-section .list-group-item .btn-link {
+		color: $primary;
+	}
+	.form-group label {
+		color: $primary;
+	}
+	.appointment-table .table-striped thead th {
+		color: $primary;
+		background-color: $light;
+	}
+	h4 {
+		color: $primary;
+	}
+	.btn-primary {
+		background-color: $green !important;
+		border-color: $green !important;
+		&:active {
+			background-color: $success !important;
+			border-color: $success !important;
+		}
+	}
+	.btn-outline-primary {
+		color: $primary;
+		background-color: transparent;
+		border-color: $primary;
+		&:hover {
+			color: $white;
+			background-color: $green;
+			border-color: $green;
+		}
+		&:active {
+			background-color: $success !important;
+			border-color: $success !important;
+		}
+	}
+	.date-filter .active {
+		background-color: $green !important;
+		border-color: $green !important;
+		color: $white !important;
+	}
+	.btn .btn-primary {
+		background-color: $green;
+		border-color: $green;
+	}
+	.rdtPicker {
+		thead {
+			background-color: rgba($color: $primary, $alpha:1);
+		}
+		td.rdtActive {
+			background-color: $primary !important;
+		}
+	}
+	.text-primary {
+		color: $primary !important;
+	}
+	.btn-link {
+		color: $primary;
+	}
+	.toast {
+		background-color: $primary !important;
+		color: $white !important;
+	}
+
+	.login a {
+		color: $primary;
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+	.payments-table th {
+		background-color: $light !important;
+		color: $primary !important;
+	}
+	.chat-page .chat-header {
+		background-color: $primary;
+		button {
+			background-color: $primary;
+		}
+	}
+	.create-chat-section .create-chat-header {
+		background-color: $primary;
+		button {
+			background-color: $primary;
+		}
+	}
+	.nav-link.active {
+		background-color: $primary !important;
+		border-color: $primary !important;
+		color: $white !important;
+	}
+	.dropdown-item {
+		color: $primary;
+		&:active {
+			background-color: $green !important;
+			// border-color: $green !important;
+		}
+	}
+	.badge-primary {
+		background-color: $primary;
+		color: $white;
+	}
+	.start-conference {
+		background-color: $green !important;
+	}
+	.settings-preconfig .content .group-switch .group-enable .enable-item input:checked + label::before {
+		background: $green;
+	}
+	.settings-preconfig .content .loadbar li > .ins {
+		background-color: $green;
+	}
+	.bar.ins {
+		background-color: $green !important;
+	}
+	.chat-page {
+		.chat-header {
+			color: $white;
+			.chat-icon {
+				color: $white;
+			}
+		}
+	}
+	.live-caption-container .form-control {
+		background-color: $white !important;
+	}
+	.add-participant-modal .modal-body .col-title {
+		color: $primary !important;
+	}
+}

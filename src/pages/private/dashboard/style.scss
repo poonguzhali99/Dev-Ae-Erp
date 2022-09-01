@@ -1,0 +1,123 @@
+.dashboard {
+	margin-top: 1rem;
+
+	// .card {
+	// 	padding: 10px;
+	// }
+	th {
+		// border: none !important;
+		z-index: 3;
+		background-color: $primary !important;
+		color: $white !important;
+		position: sticky;
+		top: -1px;
+		vertical-align: middle;
+		// border: 0;
+		border-color: 2px solid;
+		padding-top: 6px;
+		padding-bottom: 6px;
+	}
+
+	.v-none {
+		visibility: collapse;
+	}
+
+	.table {
+		overflow: auto !important;
+		table-layout: auto !important;
+		border: 1px solid #dee2e6;
+	}
+
+	.rdtPicker {
+		right: 0;
+	}
+	.react-bootstrap-table-pagination-total {
+		float: left !important;
+	}
+	.react-bs-table-sizePerPage-dropdown {
+		float: right;
+		padding-left: 10px;
+		button {
+			width: 54px !important;
+		}
+	}
+	.react-bootstrap-table-page-btns-ul {
+		margin-bottom: 0;
+		.page-link {
+			padding: 0.25rem 0.5rem;
+			border-radius: 2px !important;
+			box-shadow: none;
+		}
+		.page-item {
+			height: 31px;
+		}
+	}
+	.react-bs-table-sizePerPage-dropdown {
+		.btn {
+			padding: 0.25rem 0.5rem;
+			height: 31px;
+		}
+	}
+
+	.react-bootstrap-table {
+		tr {
+			&:hover {
+				// background-color: $primary !important; //lighten($color: $primary, $amount: 65)
+				// color: $white;
+				box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+			}
+		}
+		.react-bs-table-no-data {
+			&:hover {
+				background-color: #fff;
+			}
+		}
+		td {
+			vertical-align: middle;
+		}
+	}
+
+	.dropdown-menu {
+		text-align: center;
+		left: -103px;
+	}
+
+	.list-card {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 1rem;
+		font-weight: 700;
+		&:active {
+			background-color: $primary;
+			color: $white;
+		}
+		&:hover {
+			background-color: $primary;
+			color: $white;
+		}
+	}
+	.bottomRow {
+		// position: fixed;
+		// top: 30px;
+		margin: 20px 0px 20px 0px;
+	}
+	.wrapcontainer {
+		white-space: nowrap;
+	}
+	.img {
+		// background-color: aqua;
+		width: 140px;
+		height: 140px;
+	}
+	// .outside {
+	// 	position: relative;
+	// 	// width: 200px;
+	// 	// height: 200px;
+	// 	background-color: #eee; /*to make it visible*/
+	// }
+	// .inside {
+	// 	position: absolute;
+	// 	bottom: 2px;
+	// }
+}

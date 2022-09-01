@@ -1,0 +1,245 @@
+// @font-face {
+// 	font-family: 'Sogoe UI';
+// 	src: url('../fonts/segoeui.ttf'), url('./../fonts/segoeuil.ttf'), url('./../fonts/segoeuisl.ttf'),
+// 		url('./../fonts/segoeuib.ttf'), url('./../fonts/segoeuib.ttf');
+// 	src: local('Sogoe UI');
+// }
+@font-face {
+	font-family: "SegoeUI";
+	src: local("Segoe UI Light"),
+		url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/light/latest.woff2) format("woff2"),
+		url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/light/latest.woff) format("woff"),
+		url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/light/latest.ttf) format("truetype");
+	font-weight: 100;
+}
+
+@font-face {
+	font-family: "SegoeUI";
+	src: local("Segoe UI Semilight"),
+		url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/semilight/latest.woff2) format("woff2"),
+		url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/semilight/latest.woff) format("woff"),
+		url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/semilight/latest.ttf) format("truetype");
+	font-weight: 200;
+}
+
+@font-face {
+	font-family: "SegoeUI";
+	src: local("Segoe UI"),
+		url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/normal/latest.woff2) format("woff2"),
+		url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/normal/latest.woff) format("woff"),
+		url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/normal/latest.ttf) format("truetype");
+	font-weight: 400;
+}
+@font-face {
+	font-family: "SegoeUI";
+	src: local("Segoe UI Semibold"),
+		url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/semibold/latest.woff2) format("woff2"),
+		url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/semibold/latest.woff) format("woff"),
+		url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/semibold/latest.ttf) format("truetype");
+	font-weight: 600;
+}
+
+@font-face {
+	font-family: "SegoeUI";
+	src: local("Segoe UI Bold"),
+		url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/bold/latest.woff2) format("woff2"),
+		url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/bold/latest.woff) format("woff"),
+		url(//c.s-microsoft.com/static/fonts/segoe-ui/west-european/bold/latest.ttf) format("truetype");
+	font-weight: 700;
+}
+
+$theme-colors: ("primary": $primary, "danger": $danger, "secondary": $secondary);
+$body-bg: transparent;
+// $body-color: $dark;
+
+$grid-breakpoints: (xs: 0, sm: 435px, md: 769px, lg: 1025px, xl: 1440px);
+
+@import "node_modules/bootstrap/scss/bootstrap";
+html {
+	background-color: rgba($color: $bg, $alpha: 1);
+}
+body {
+	font-family: "SegoeUI";
+	margin: 0;
+	padding: 0;
+	height: auto;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: inherit;
+}
+.bg-light {
+	background-color: #fff !important;
+}
+.btn {
+	box-shadow: none !important;
+	border-radius: 2px;
+	padding-left: 16px;
+	padding-right: 16px;
+}
+.btn-group {
+	.btn {
+		border-radius: 2px;
+	}
+}
+.btn-secondary {
+	color: $dark;
+	background-color: transparent;
+}
+
+.btn-dark {
+	color: $light;
+	background-color: $dark;
+}
+.form-group {
+	label {
+		color: rgba($color: $dark, $alpha: 0.8);
+		font-weight: bold;
+	}
+}
+
+label {
+	z-index: 10;
+}
+
+.card {
+	box-shadow: 0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108);
+}
+.navbar {
+	.navbar-brand {
+		background: $transparent;
+		font-size: 100%;
+		img {
+			height: 34px;
+		}
+	}
+	.nav-item {
+		transition: 250ms;
+	}
+}
+.modal {
+	.modal-content {
+		.icon {
+			cursor: pointer;
+			font-size: 80%;
+			padding: 5px;
+			&:hover {
+				background-color: rgba($color: $dark, $alpha: 0.1);
+			}
+		}
+		border-radius: 0.2rem;
+		border-top: 4px solid $primary;
+		box-shadow: rgba(0, 0, 0, 0.22) 0px 25.6px 57.6px 0px, rgba(0, 0, 0, 0.18) 0px 4.8px 14.4px 0px;
+	}
+}
+.modal-backdrop.show {
+	opacity: 0.3;
+}
+/* width */
+::-webkit-scrollbar {
+	width: 5px;
+	height: 7px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: lighten($color: $muted, $amount: 20);
+	border-radius: 50px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: lighten($color: $muted, $amount: 10);
+}
+
+.form-control {
+	word-break: break-all;
+	min-height: 45px;
+	height: auto;
+	box-shadow: none !important;
+	color: $dark !important;
+	border-radius: 2px;
+	// border: 2px solid #dce4ec; // outline: 1px solid transparent;
+	background-color: #e6f4ff;
+	border-top-width: 0;
+	border-right-width: 0;
+	border-left-width: 0;
+	border-bottom: 2px solid #e6f4ff;
+	&:focus {
+		// outline: 1px solid $primary;
+		background-color: #e6f4ff;
+	}
+
+	&.placeholder-color {
+		color: grey !important;
+		option {
+			color: $dark;
+		}
+	}
+
+	&:placeholder-shown {
+		color: grey;
+		font-weight: normal;
+	}
+	&:not(:placeholder-shown) {
+		font-weight: 600;
+	}
+}
+.react-tel-input {
+	border-radius: 2px;
+	border-color: $light;
+	.flag-dropdown {
+		background-color: $light;
+		border: 0px;
+		height: 30px;
+		top: 1px;
+		left: 1px;
+	}
+	.country-list {
+		font-size: 14px;
+	}
+	.flag-dropdown.open {
+		z-index: 999;
+		.selected-flag,
+		.selected-flag:hover {
+			background-color: $light;
+		}
+	}
+	.form-control {
+		width: 100% !important;
+		border-radius: 2px;
+		min-height: 0px;
+		height: 32px;
+		&:not(:placeholder-shown) {
+			font-weight: 400;
+		}
+		&:focus {
+			background-color: $white;
+			border-color: $primary;
+		}
+		&:hover {
+			border: 1px solid $primary;
+		}
+	}
+}
+
+.input-group-text {
+	border: 2px solid #dce4ec;
+	border-left-width: 0px;
+}
+.withAddon {
+	border-top-right-radius: 0px !important;
+	border-bottom-right-radius: 0px !important;
+}
+
+.input-group > .form-control:not(:last-child),
+.input-group > .custom-select:not(:last-child) {
+	border-top-right-radius: 4px !important;
+	border-bottom-right-radius: 4px !important;
+}

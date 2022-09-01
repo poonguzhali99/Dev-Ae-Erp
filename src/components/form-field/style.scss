@@ -1,0 +1,78 @@
+.otp-box {
+	width: 2.5em !important;
+	padding: 0.375rem .25rem;
+}
+
+.otp-section {
+	.customError {
+		text-align: center;
+	}
+}
+
+.currency {
+	.form-control {
+		height: 63px;
+	}
+}
+
+.customAddonDropdown {
+	background-color: #e6f4ff;
+	color: $dark;
+	width: 66px;
+	padding: 0px;
+	border: transparent;
+	border-right: 2px solid #fff;
+	font-weight: 600;
+	font-size: 1rem;
+	&::after {
+		margin-left: 10px;
+	}
+}
+
+.input-error {
+	border-color: $danger !important;
+}
+
+.rbt-token {
+	background-color: $primary !important;
+	color: $light !important;
+}
+.ant-select {
+	.ant-tag {
+		border-radius: 2px;
+		background-color: $primary;
+		color: $white;
+		padding: 0px;
+	}
+	.anticon.anticon-close.ant-tag-close-icon {
+		vertical-align: middle;
+		color: $white;
+		margin-bottom: 2px;
+	}
+	.ant-select-selection-overflow-item {
+		margin: 2px;
+	}
+}
+.menu-item {
+	max-height: 74px;
+	.ant-select-item {
+		padding: 0px;
+		height: 0px;
+		margin: 0px;
+	}
+	.ant-menu-vertical .ant-menu-item {
+		margin: 0px;
+	}
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+	-moz-appearance: textfield;
+}

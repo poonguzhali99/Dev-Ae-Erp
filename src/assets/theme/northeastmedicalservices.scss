@@ -1,0 +1,141 @@
+.northeastmedicalservices {
+	$primary: #931b0e;
+	$secondary: #5c3801;
+	$light: #f3f2f1;
+	$dark: #323130;
+	$danger: #eb5757;
+	$transparent: transparent;
+	$bg: #fcfcfc;
+	$success: #28a745;
+	// $warning: #ffc107;
+	$white: #ffffff;
+	$muted: #6c757d;
+
+	$theme-colors: ("primary": $primary, "danger": $danger, "secondary": $secondary) !important;
+	.form-control {
+		background-color: $bg;
+		border-width: 1px;
+		border-radius: 5px;
+	}
+	.participants-section .list-group-item .btn-link {
+		color: $primary;
+	}
+	.form-group label {
+		color: $muted;
+	}
+	.appointment-table .table-striped thead th {
+		color: $primary;
+		background-color: $light;
+	}
+	h4 {
+		color: $primary;
+	}
+	.btn-primary {
+		background-color: $primary !important;
+		border-color: $primary !important;
+		
+		&:hover {
+			background-color: $secondary !important;
+			border-color: $secondary !important;
+		}
+		&:active {
+			background-color: $secondary !important;
+			border-color: $secondary !important;
+		}
+	}
+	.btn-outline-primary {
+		color: $primary !important;
+		background-color: transparent;
+		border-color: $primary !important;
+		&:hover {
+			color: $white !important;
+			background-color: $primary !important;
+			border-color: $primary !important;
+		}
+		&:active {
+			background-color: $primary !important;
+			border-color: $primary !important;
+			
+		}
+	}
+	.date-filter .active {
+		background-color: $primary !important;
+		border-color: $primary !important;
+		color: $white !important;
+	}
+	.btn .btn-primary {
+		background-color: $primary !important;
+		border-color: $primary !important;
+	}
+	.rdtPicker {
+		thead {
+			background-color: rgba($color: $primary, $alpha:1);
+		}
+		td.rdtActive {
+			background-color: $primary !important;
+		}
+	}
+	.text-primary {
+		color: $primary !important;
+	}
+	.btn-link {
+		color: $primary;
+	}
+	.toast {
+		background-color: $primary !important;
+		color: $white !important;
+	}
+
+	.login a {
+		color: $primary;
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+	.payments-table th {
+		background-color: $light !important;
+		color: $primary !important;
+	}
+	.chat-page .chat-header {
+		background-color: $primary;
+		button {
+			background-color: $primary;
+		}
+	}
+	.create-chat-section .create-chat-header {
+		background-color: $primary;
+		button {
+			background-color: $primary;
+		}
+	}
+	.nav-link.active {
+		background-color: $primary !important;
+		border-color: $primary !important;
+		color: $white !important;
+	}
+	.dropdown-item {
+		color: $primary;
+		&:active {
+			background-color: $primary !important;
+			color: $white !important;
+		}
+	}
+	.badge-primary {
+		background-color: $primary;
+		color: $primary;
+	}
+
+	.start-conference {
+		background-color: $primary !important;
+	}
+	.settings-preconfig .content .group-switch .group-enable .enable-item input:checked + label::before {
+		background: $primary;
+	}
+	.settings-preconfig .content .loadbar li > .ins {
+		background-color: $primary;
+	}
+	.bar.ins {
+		background-color: $primary !important;
+	}
+}

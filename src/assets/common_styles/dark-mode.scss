@@ -1,0 +1,25 @@
+// Dark Mode Code
+body {
+	&.dark-mode,
+	.dark-mode,
+	.dark {
+		.card,
+		.card-body {
+			color: $light;
+			background-color: rgba($color: $light, $alpha: 0.1);
+		}
+		color: $light;
+		background-color: $dark;
+	}
+	&.light-mode,
+	.light-mode,
+	.light {
+		.card,
+		.card-body {
+			color: $dark;
+			background-color: rgba($color: $dark, $alpha: 0.2);
+		}
+		color: $dark;
+		background-color: $light;
+	}
+}
