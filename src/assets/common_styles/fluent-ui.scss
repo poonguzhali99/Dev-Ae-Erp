@@ -75,6 +75,27 @@ h6 {
 .bg-light {
 	background-color: #fff !important;
 }
+
+.ant-btn-primary {
+	justify-content: center;
+	align-items: center;
+	box-shadow: none !important;
+	border-radius: 2px;
+	padding: 0px 16px;
+	// padding-left: 16px;
+	// padding-right: 16px;
+	background: $primary;
+	border-color: $primary;
+	font-weight: 600;
+	font-size: medium;
+}
+.ant-btn-primary:focus,
+.ant-btn-primary:hover {
+	color: #fff;
+	background: $primary !important;
+	border-color: $primary !important;
+}
+
 .btn {
 	box-shadow: none !important;
 	border-radius: 2px;

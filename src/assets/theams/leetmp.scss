@@ -1,0 +1,64 @@
+.leetmp {
+	$primary: #07700c;
+	$secondary: #605e5c;
+	$light: #f3f2f1;
+	$dark: #323130;
+	$danger: #eb5757;
+	$transparent: transparent;
+	$bg: #f4f5fa;
+	$success: #28a746;
+	$warning: #ffc107;
+	$white: #ffffff;
+	$muted: #6c757d;
+
+	$theme-colors: ("primary": $primary, "danger": $danger, "secondary": $secondary, "success": $success);
+	$body-bg: transparent;
+	// $body-color: $dark;
+
+	$grid-breakpoints: (xs: 0, sm: 435px, md: 769px, lg: 1025px, xl: 1440px);
+
+	html {
+		background-color: rgba($color: $bg, $alpha: 1);
+	}
+	body {
+		font-family: "SegoeUI";
+		margin: 0;
+		padding: 0;
+		height: auto;
+	}
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: inherit;
+	}
+	.bg-light {
+		background-color: #fff !important;
+	}
+
+	.ant-btn-primary {
+		justify-content: center;
+		align-items: center;
+		box-shadow: none !important;
+		border-radius: 2px;
+		padding: 0px 16px;
+		background: $primary;
+		border-color: $primary;
+		font-weight: 600;
+		font-size: medium;
+	}
+	.ant-btn-primary:focus,
+	.ant-btn-primary:hover {
+		color: $white;
+		background: $primary !important;
+		border-color: $primary !important;
+	}
+	.header {
+		background-color: $primary;
+		.ant-menu {
+			background-color: $primary !important;
+		}
+	}
+}

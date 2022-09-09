@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from 'reactstrap';
+import { Button } from 'antd';
 import _isEmpty from 'lodash/isEmpty';
 import ReactDatetimeClass from 'react-datetime';
 import './style.scss';
@@ -18,7 +18,7 @@ const DateFilter = () => {
 		<div className="date-filter d-flex">
 			<Button
 				outline
-				color="primary"
+				type="primary"
 				size="sm"
 				className={moment().format('MM/DD/YYYY') == summaryFilter.date ? 'active' : ''}
 				onClick={() => dispatch(changeFilter({ date: moment().format('MM/DD/YYYY') }))}

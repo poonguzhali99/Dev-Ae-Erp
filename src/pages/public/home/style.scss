@@ -7,7 +7,7 @@
 		z-index: -1;
 		top: 0;
 		left: 0;
-		background-image: url('../../../assets/images/banner.png');
+		// background-image: url('../../../assets/images/banner.png');
 		background-color: $white;
 		background-size: cover;
 		background-position: center;
@@ -24,9 +24,10 @@
 		backdrop-filter: brightness(0.75);
 		-webkit-backdrop-filter: brightness(0.75);
 	}
-
+	.ant-card-meta-title {
+		font-weight: 600;
+	}
 	.ant-divider-horizontal {
-		// border-top-color: rgb(228 7 7 / 63%);
 		border-top-color: $primary;
 	}
 }

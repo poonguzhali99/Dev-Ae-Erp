@@ -28,26 +28,26 @@
 }
 .ant-layout-content {
 	background-color: $white;
-	margin-top: 64px;
-	height: calc(calc(var(--vh, 1vh) * 100) - 64px);
+	margin-top: 100px;
+	height: calc(calc(var(--vh, 1vh) * 100) - 100px);
 	overflow-x: hidden;
 }
 
 .public-routes {
 	.ant-layout-content {
-		margin-top: 0px;
-		height: calc(calc(var(--vh, 1vh) * 100));
+		margin-top: 100px;
+		height: calc(calc(var(--vh, 1vh) * 100) - 100px);
 	}
 	&.ant-layout {
 		background: none !important;
 	}
 }
-.instant-chat {
-	.ant-layout-content {
-		margin-top: 60px;
-		height: calc(calc(var(--vh, 1vh) * 100) - 60px);
-	}
-}
+// .instant-chat {
+// 	.ant-layout-content {
+// 		margin-top: 60px;
+// 		height: calc(calc(var(--vh, 1vh) * 100) - 60px);
+// 	}
+// }
 .ant-input-status-error,
 .ant-input,
 .ant-select,

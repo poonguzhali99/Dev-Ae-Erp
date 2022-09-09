@@ -12,6 +12,10 @@ import { Layout, ConfigProvider, Spin } from 'antd';
 // Pages
 const Login = lazy(() => import('./src/pages/public/login'));
 const Home = lazy(() => import('./src/pages/public/home'));
+const AboutUs = lazy(() => import('./src/pages/public/static-content/about-us'));
+const Privacy = lazy(() => import('./src/pages/public/static-content/privacy'));
+const Terms = lazy(() => import('./src/pages/public/static-content/terms'));
+const ContactUs = lazy(() => import('./src/pages/public/static-content/terms'));
 
 // Components
 
@@ -34,11 +38,19 @@ import 'assets/common_styles/fluent-ui.scss';
 import 'assets/common_styles/style.scss';
 import 'assets/common_styles/responsive.scss';
 import 'react-datetime/css/react-datetime.css';
+import './src/assets/theams/leetmp.scss';
+import './src/assets/theams/slesks.scss';
+import './src/assets/theams/wma.scss';
+import './src/assets/theams/slesak.scss';
 
 import { logIn, logOut } from './src/services/auth/action';
+// import Header from './src/components/header';
+import AntSidebar from './src/components/ant-sidebar';
+import AntHeader from './src/components/ant-header';
 
 const { Content } = Layout;
 const App = React.memo(() => {
+	const [ expand, setExpand ] = useState(true);
 	const dispatch = useDispatch();
 	const { isLoggedIn } = useSelector(({ authReducer }) => {
 		return {
@@ -81,13 +93,19 @@ const App = React.memo(() => {
 		},
 		[ isLoggedIn ]
 	);
-
+	const onCollapse = useCallback(
+		() => {
+			setExpand((prevCollapse) => !prevCollapse);
+		},
+		[ expand ]
+	);
 	const renderSection = () =>
 		isLoggedIn ? (
 			<Layout>
-				{/* <AntHeader expand={expand} /> */}
+				<AntHeader expand={expand} />
+				{/* <Header /> */}
 				<Layout>
-					{/* <AntSidebar expand={expand} onCollapse={onCollapse} /> */}
+					<AntSidebar expand={expand} onCollapse={onCollapse} />
 					<Content className="site-layout-background">
 						<div className="content-layout">
 							<Routes>
@@ -101,16 +119,21 @@ const App = React.memo(() => {
 				</Layout>
 			</Layout>
 		) : (
-			<Layout className={`${window.location.pathname == '/instantchat' ? 'instant-chat' : 'public-routes'}`}>
+			<Layout className="public-routes">
+				<AntHeader expand={expand} />
+				{/* <Header /> */}
 				<Content>
 					<Routes>
-						<Route path="/home" element={<Home />} />
+						<Route path="/Welcome" element={<Home />} />
 						<Route path="/SLESBP" element={<Login />} />
 						<Route path="/LEETMP" element={<Login />} />
 						<Route path="/SLESAK" element={<Login />} />
 						<Route path="/SLESKS" element={<Login />} />
 						<Route path="/WMA" element={<Login />} />
-						<Route path="*" element={<Navigate to="/home" replace />} />
+						<Route path="/About" element={<AboutUs />} />
+						<Route path="/Privacy" element={<Privacy />} />
+						<Route path="/Terms" element={<Terms />} />
+						<Route path="*" element={<Navigate to="/Welcome" replace />} />
 					</Routes>
 				</Content>
 			</Layout>

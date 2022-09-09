@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Suspense } from 'react';
 // import { Row, Col, Card, CardBody, FormGroup, Label, Button, Alert, Modal, ModalBody, Media } from 'reactstrap';
-import { List, Card, Image, Divider } from 'antd';
+import { List, Card, Image, Divider, Spin } from 'antd';
 import { Formik, Form } from 'formik';
 
 import './style.scss';
@@ -27,9 +27,12 @@ const Home = () => {
 
 	const { staticVariables } = constants;
 	const { Meta } = Card;
+	useEffect(() => {
+		staticVariables.branchList.map((item) => document.body.classList.remove(item.id.toLowerCase()));
+	}, []);
 	return (
-		<div className="container-fluid home">
-			<Loader show={loader} dark={true}>
+		<div className="container-fluid container-xl home">
+			<Spin spinning={loader}>
 				<Divider orientation="left">
 					<img style={{ height: 100 }} src={chooseImage} />
 				</Divider>
@@ -42,7 +45,10 @@ const Home = () => {
 								hoverable
 								style={{ margin: 5, borderRadius: 8 }}
 								cover={<img style={{ padding: 3 }} alt={item.name} src={item.url} />}
-								onClick={() => navigate(`/${item.id}`)}
+								onClick={() => {
+									document.body.classList.add(item.id.toLowerCase());
+									navigate(`/${item.id}`);
+								}}
 							>
 								<Meta title={item.name} />
 							</Card>
@@ -50,7 +56,7 @@ const Home = () => {
 					)}
 				/>
 				<Divider />
-			</Loader>
+			</Spin>
 		</div>
 	);
 };

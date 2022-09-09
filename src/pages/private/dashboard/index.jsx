@@ -29,7 +29,7 @@ import { Formik } from 'formik';
 import Loader from '../../../components/Loader';
 import Empty from '../../../components/empty';
 import { logOut } from '../../../services/auth/action';
-import Header from '../../../components/header';
+// import Header from '../../../components/header';
 import DateFilter from '../../../components/date-filter';
 import API_CALL from '../../../services';
 import moment from 'moment';
@@ -56,10 +56,9 @@ const Dashboard = () => {
 
 	return (
 		<div className="container-fluid container-xl dashboard">
-			<Header />
 			<Suspense fallback={<Spinner />}>
-				{/* <div className="justify-content-end"> */}
-				<DateFilter />
+				{/* <DateFilter /> */}
+				<div>Welcome</div>
 			</Suspense>
 		</div>
 	);

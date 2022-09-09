@@ -198,7 +198,7 @@ const generateComponent = (data) => {
 		);
 	} else if (type == 'checkbox') {
 		return (
-			<div>
+			<Form.Item required={required} validateStatus={errors[name] ? 'error' : 'primary'} help={errors[name]}>
 				<Checkbox
 					name={field.name}
 					type={type}
@@ -207,10 +207,14 @@ const generateComponent = (data) => {
 						await form.setFieldValue(field.name, checked);
 						handleOnChange && handleOnChange(checked);
 					}}
+					onBlur={async ({ target: { checked } }) => {
+						await form.setFieldTouched(field.name, checked);
+						handleOnBlur && handleOnBlur(checked);
+					}}
 				>
 					{label}
 				</Checkbox>
-			</div>
+			</Form.Item>
 		);
 	} else if (type == 'dateRange') {
 		const { RangePicker } = DatePicker;

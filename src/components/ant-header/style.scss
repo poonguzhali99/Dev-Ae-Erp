@@ -1,0 +1,47 @@
+.ant-layout-header {
+	height: 100px !important;
+	position: fixed !important;
+	z-index: 99;
+	width: 100%;
+	color: $white;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 10px 0 0 !important;
+	background-color: $primary !important;
+	box-shadow: rgba(0, 0, 0, 0.15) 2px 2px 4px;
+	.logo {
+		height: 90px;
+		margin: 0px 10px;
+		background-color: $primary;
+		border-radius: 3px;
+	}
+	.ant-menu {
+		background-color: $primary;
+		color: $white;
+		font-size: medium;
+		font-weight: 700;
+		justify-content: end;
+		align-items: center;
+	}
+	.ant-menu-item {
+		:hover {
+			color: $white;
+			text-decoration: solid;
+		}
+	}
+	.ant-menu-horizontal {
+		border-bottom: 0px;
+	}
+	.header_logo {
+		background-color: $white;
+	}
+
+	.menu-icon {
+		padding: 0 16px;
+	}
+
+	.ant-drawer-top {
+		top: 100px !important;
+	}
+}

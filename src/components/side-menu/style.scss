@@ -1,0 +1,27 @@
+.ant-menu-item a:hover {
+	text-decoration: none;
+}
+.side-nav-menu-items {
+	margin-top: 40px;
+	width: 280px;
+	padding: 0;
+	height: calc(calc(var(--vh, 1vh) * 100) - 100px);
+	background: $white;
+	box-shadow: 0px 0px 10px rgba($color: $secondary, $alpha: 0.2);
+	overflow: auto;
+	.menu-title {
+		font-size: medium;
+		font-weight: 600;
+	}
+	.ant-collapse-content > .ant-collapse-content-box {
+		padding: 0px 0px 0px 40px;
+		// font-size: medium;
+		font-weight: 600;
+	}
+
+	.ant-btn.ant-btn-block {
+		text-align: left;
+		padding-left: 0px;
+		// font-weight: 600;
+	}
+}

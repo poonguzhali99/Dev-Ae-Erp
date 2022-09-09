@@ -1,0 +1,27 @@
+.ant-drawer-header {
+	background-color: $primary;
+	padding: 0px !important;
+}
+
+.header-title {
+	padding-left: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	height: 100px;
+	color: $white;
+	.logo {
+		height: 90px;
+		margin: 0px 10px;
+		background-color: $white;
+		border-radius: 3px;
+	}
+}
+.ant-drawer-title img {
+	height: 32px;
+	// margin-left: 10px;
+}
+
+.ant-drawer-body {
+	padding: 0 !important;
+}
