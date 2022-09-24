@@ -5,16 +5,30 @@ import storage from 'redux-persist/lib/storage'; // defaults to localStorage for
 
 import { authReducer } from '../services/auth/reducer';
 import { userDetailsReducer } from '../services/user-details/reducer';
+import {
+	studentInfoReducer,
+	academicYearReducer,
+	branchReducer,
+	classReducer,
+	sectionReducer,
+	studentMasterRreducer
+} from '../services/academic-details/reducer';
 import { filterReducer } from '../services/date-filter/reducer';
 
 /**
  * combineReducers is simply a utility function to simplify the most common use case when writing Redux reducers.
- * It takes an object full of slice reducer functions, and returns a new reducer function
+ * It takes an object full of slice reducer function, s, and returns a new reducer function
  */
 
 const appReducer = combineReducers({
 	authReducer,
 	userDetailsReducer,
+	studentInfoReducer,
+	academicYearReducer,
+	branchReducer,
+	classReducer,
+	sectionReducer,
+	studentMasterRreducer,
 	filterReducer
 });
 

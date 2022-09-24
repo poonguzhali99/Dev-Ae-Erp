@@ -77,17 +77,15 @@ h6 {
 }
 
 .ant-btn-primary {
-	justify-content: center;
-	align-items: center;
-	box-shadow: none !important;
-	border-radius: 2px;
+	// justify-content: center;
+	// align-items: center;
+	// box-shadow: none !important;
+	border-radius: 5px;
 	padding: 0px 16px;
 	// padding-left: 16px;
 	// padding-right: 16px;
 	background: $primary;
 	border-color: $primary;
-	font-weight: 600;
-	font-size: medium;
 }
 .ant-btn-primary:focus,
 .ant-btn-primary:hover {
@@ -96,12 +94,31 @@ h6 {
 	border-color: $primary !important;
 }
 
-.btn {
+.ant-btn {
 	box-shadow: none !important;
-	border-radius: 2px;
-	padding-left: 16px;
-	padding-right: 16px;
+	border-radius: 5px;
+	padding: 0px 16px;
+	// font-weight: 600;
+	font-size: medium;
+	// &:hover {
+	// color: $primary;
+	// border-color: $primary;
+	// }
 }
+
+.ant-table-thead {
+	height: 50px;
+	font-weight: 600;
+	font-size: medium;
+	.ant-table-cell {
+		text-align: center;
+	}
+}
+
+.ant-table-row {
+	height: 50px;
+}
+
 .btn-group {
 	.btn {
 		border-radius: 2px;

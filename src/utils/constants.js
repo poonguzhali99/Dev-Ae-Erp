@@ -4,6 +4,12 @@ import SLESAK_Logo from '../assets/images/SLESAKimage.png';
 import SLESKS_Logo from '../assets/images/SLESKSimage.png';
 import WMA_Logo from '../assets/images/WMAimage.png';
 export const constants = {
+	userRole: {
+		teacher: 'Teacher',
+		admin: 'Admin',
+		parent: 'Parent',
+		transportManager: 'Transport Manager'
+	},
 	staticVariables: {
 		branchList: [
 			{

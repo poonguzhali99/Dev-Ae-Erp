@@ -13,7 +13,7 @@
 	.logo {
 		height: 90px;
 		margin: 0px 10px;
-		background-color: $primary;
+		background-color: $white;
 		border-radius: 3px;
 	}
 	.ant-menu {
@@ -21,8 +21,14 @@
 		color: $white;
 		font-size: medium;
 		font-weight: 700;
+		margin-right: 15px;
 		justify-content: end;
 		align-items: center;
+	}
+	.ant-menu-inline,
+	.ant-menu-vertical,
+	.ant-menu-vertical-left {
+		border-right: 0px !important;
 	}
 	.ant-menu-item {
 		:hover {

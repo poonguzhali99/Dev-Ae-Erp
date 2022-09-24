@@ -1,0 +1,25 @@
+.assesment {
+	position: relative;
+	.search-card {
+		height: auto;
+		// position: fixed;
+	}
+
+	.ant-card {
+		border-color: $additional;
+		border-radius: 8px;
+		.ant-card-head {
+			background-color: $additional;
+			border-color: $additional;
+			color: $white;
+			border-top-left-radius: 8px;
+			border-top-right-radius: 8px;
+		}
+	}
+}
+
+.editable-row .ant-form-item-explain {
+	position: absolute;
+	top: 100%;
+	font-size: 12px;
+}

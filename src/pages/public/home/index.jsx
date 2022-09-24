@@ -1,16 +1,11 @@
 import React, { useEffect, useState, Suspense } from 'react';
-// import { Row, Col, Card, CardBody, FormGroup, Label, Button, Alert, Modal, ModalBody, Media } from 'reactstrap';
 import { List, Card, Image, Divider, Spin } from 'antd';
 import { Formik, Form } from 'formik';
 
 import './style.scss';
-// import FormField from '../../../components/form-field';
-// import API_CALL from '../../../services';
 import { useNavigate } from 'react-router-dom';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import _isEmpty from 'lodash/isEmpty';
-import Loader from '../../../components/Loader';
-// import { logIn } from '../../../services/auth/action';
 
 import { constants } from '../../../utils/constants';
 import chooseImage from '../../../assets/images/Choseimage.png';
@@ -18,12 +13,7 @@ import chooseImage from '../../../assets/images/Choseimage.png';
 const Home = () => {
 	const navigate = useNavigate(),
 		dispatch = useDispatch(),
-		[ loginError, setloginError ] = useState(false),
-		[ loader, setLoader ] = useState(false),
-		[ alreadyLogin, setAlreadyLogin ] = useState(false),
-		[ errorMessage, seterrorMessage ] = useState(),
-		[ loginCreds, setloginCreds ] = useState(),
-		[ orgLogo, setOrgLogo ] = useState('');
+		[ loader, setLoader ] = useState(false);
 
 	const { staticVariables } = constants;
 	const { Meta } = Card;
@@ -55,7 +45,9 @@ const Home = () => {
 						</List.Item>
 					)}
 				/>
-				<Divider />
+				<Divider plain orientation="right">
+					Copyright © 2020 AE Enterprises. All rights reserved.
+				</Divider>
 			</Spin>
 		</div>
 	);

@@ -1,8 +1,10 @@
+import { load } from 'react-cookies';
 import * as types from './action-types';
 
 export const authReducer = (
 	state = {
-		isLoggedIn: false
+		isLoggedIn: false,
+		userToken: null
 	},
 	{ type }
 ) => {
@@ -10,12 +12,14 @@ export const authReducer = (
 		case types.LOG_IN:
 			return {
 				...state,
-				isLoggedIn: true
+				isLoggedIn: true,
+				userToken: load('session')
 			};
 		case types.LOG_OUT:
 			return {
 				...state,
-				isLoggedIn: false
+				isLoggedIn: false,
+				userToken: null
 			};
 		default:
 			return state;

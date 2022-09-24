@@ -22,6 +22,7 @@ const generateComponent = (data) => {
 		list,
 		keyword,
 		label,
+		customLabel,
 		placeholder,
 		displayName,
 		autoFocus,
@@ -85,22 +86,22 @@ const generateComponent = (data) => {
 				if (objKey == displayName) findObjectLabel = objKey;
 			}
 		}
-		list.sort((a, b) => {
-			var labelA, labelB;
-			if (findObjectLabel) {
-				for (let val in a) {
-					if (val == displayName) {
-						labelA = a[displayName] && a[displayName].toLowerCase();
-						labelB = b[displayName] && b[displayName].toLowerCase();
-						if (labelA < labelB) return -1;
-					}
-				}
-			} else {
-				labelA = a.toLowerCase();
-				labelB = b.toLowerCase();
-				if (labelA < labelB) return -1;
-			}
-		});
+		// list.sort((a, b) => {
+		// 	var labelA, labelB;
+		// 	if (findObjectLabel) {
+		// 		for (let val in a) {
+		// 			if (val == displayName) {
+		// 				labelA = a[displayName] && a[displayName].toLowerCase();
+		// 				labelB = b[displayName] && b[displayName].toLowerCase();
+		// 				if (labelA < labelB) return -1;
+		// 			}
+		// 		}
+		// 	} else {
+		// 		labelA = a.toLowerCase();
+		// 		labelB = b.toLowerCase();
+		// 		if (labelA < labelB) return -1;
+		// 	}
+		// });
 		let optionList = list.map((data, index) => {
 			return (
 				<Option key={index} value={keyword ? data[keyword] : data}>
@@ -122,13 +123,7 @@ const generateComponent = (data) => {
 						allowClear={false}
 						disabled={disabled}
 						getPopupContainer={() => document.getElementById('select')}
-						placeholder={
-							!hideDefaultOption && (
-								<React.Fragment>
-									{translatedString('formField.select')} {placeholder}
-								</React.Fragment>
-							)
-						}
+						placeholder={!hideDefaultOption && <React.Fragment>Select {placeholder}</React.Fragment>}
 						optionFilterProp="children"
 						filterOption={(key, list) => {
 							return list.children.toString().toLowerCase().indexOf(key.toString().toLowerCase()) >= 0;
@@ -146,11 +141,7 @@ const generateComponent = (data) => {
 							handleOnBlur && handleOnBlur(value);
 						}}
 					>
-						{!hideDefaultOption && (
-							<Option value="">
-								{translatedString('formField.select')} {placeholder}
-							</Option>
-						)}
+						{!hideDefaultOption && <Option value="">Select {placeholder}</Option>}
 						{optionList}
 					</Select>
 				</Form.Item>
@@ -198,21 +189,16 @@ const generateComponent = (data) => {
 		);
 	} else if (type == 'checkbox') {
 		return (
-			<Form.Item required={required} validateStatus={errors[name] ? 'error' : 'primary'} help={errors[name]}>
+			<Form.Item label={label} validateStatus={validateErrorStatus()} help={error && errors[name]}>
 				<Checkbox
-					name={field.name}
-					type={type}
-					defaultChecked={field.value}
+					id={name}
+					defaultChecked={value}
 					onChange={async ({ target: { checked } }) => {
 						await form.setFieldValue(field.name, checked);
 						handleOnChange && handleOnChange(checked);
 					}}
-					onBlur={async ({ target: { checked } }) => {
-						await form.setFieldTouched(field.name, checked);
-						handleOnBlur && handleOnBlur(checked);
-					}}
 				>
-					{label}
+					{customLabel}
 				</Checkbox>
 			</Form.Item>
 		);

@@ -4,7 +4,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Sound from 'react-sound';
 import _isEmpty from 'lodash/isEmpty';
 import _get from 'lodash/get';
-import { load } from 'react-cookies';
+import { load, save } from 'react-cookies';
 
 //antd
 import { Layout, ConfigProvider, Spin } from 'antd';
@@ -47,14 +47,27 @@ import { logIn, logOut } from './src/services/auth/action';
 // import Header from './src/components/header';
 import AntSidebar from './src/components/ant-sidebar';
 import AntHeader from './src/components/ant-header';
+import {
+	getAcademicYear,
+	getBranch,
+	setActiveAcademicYear,
+	setActiveBranch
+} from './src/services/academic-details/action';
+import { getUserDetails } from './src/services/user-details/action';
 
 const { Content } = Layout;
 const App = React.memo(() => {
 	const [ expand, setExpand ] = useState(true);
 	const dispatch = useDispatch();
-	const { isLoggedIn } = useSelector(({ authReducer }) => {
+	const {
+		authReducer: { isLoggedIn },
+		academicYearList,
+		userDetails
+	} = useSelector(({ authReducer, userDetailsReducer, academicYearReducer }) => {
 		return {
-			isLoggedIn: authReducer.isLoggedIn
+			authReducer,
+			academicYearList: academicYearReducer.response.availableAcademicYear,
+			userDetails: userDetailsReducer.response
 		};
 	}, shallowEqual);
 
@@ -69,19 +82,34 @@ const App = React.memo(() => {
 			let vh = window.innerHeight * 0.01;
 			document.documentElement.style.setProperty('--vh', `${vh}px`);
 		});
+		getAcademicYear();
 		validateAuth();
 	}, []);
 	const validateAuth = () => {
 		const session = load('session');
+		// console.log('session', session);
 		let userdetails = load('userdetails');
-		console.log('userdetails', userdetails);
-		// dispatch(getUserDetails(userDetails));
+		save('userdetails', userdetails);
+		// console.log('userdetails', userdetails);
+		!_isEmpty(userdetails) && dispatch(getUserDetails(userdetails));
 		if (session) {
+			dispatch(getBranch());
 			dispatch(logIn(session));
+			// userdetails && dispatch(setActiveBranch(userdetails.Userbranch));
 		} else {
 			dispatch(logOut());
 		}
 	};
+
+	useEffect(
+		() => {
+			if (!_isEmpty(userDetails)) {
+				dispatch(getBranch());
+				dispatch(setActiveBranch(userDetails.Userbranch));
+			}
+		},
+		[ userDetails ]
+	);
 
 	useEffect(
 		() => {
@@ -99,6 +127,7 @@ const App = React.memo(() => {
 		},
 		[ expand ]
 	);
+
 	const renderSection = () =>
 		isLoggedIn ? (
 			<Layout>
@@ -112,7 +141,7 @@ const App = React.memo(() => {
 								{routes.map((route, index) => (
 									<Route key={index} path={route.path} element={<route.element />} />
 								))}
-								<Route path="*" element={<Navigate to="/dashboard" replace />} />
+								<Route path="*" element={<Navigate to="/AssesmentMarksEntry" replace />} />
 							</Routes>
 						</div>
 					</Content>
@@ -121,7 +150,6 @@ const App = React.memo(() => {
 		) : (
 			<Layout className="public-routes">
 				<AntHeader expand={expand} />
-				{/* <Header /> */}
 				<Content>
 					<Routes>
 						<Route path="/Welcome" element={<Home />} />

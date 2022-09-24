@@ -55,8 +55,8 @@
 		background: $primary !important;
 		border-color: $primary !important;
 	}
-	.header {
-		background-color: $primary;
+	.ant-layout-header {
+		background-color: $primary !important;
 		.ant-menu {
 			background-color: $primary !important;
 		}

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { constants } from '../utils/constants';
 import { Toast } from '../utils/common-utils';
-// import { showUnAuthorizedAccessMsg } from '../utils/common-utils';
+import { load } from 'react-cookies';
 const ROOT_URL = process.env.API_URL;
 
 // import './axios-auth-refresh-token';
@@ -26,7 +26,7 @@ const API_CALL = ({
 	if (callback) {
 		axios({
 			method,
-			url: ROOT_URL + url,
+			url: fullUrl ? fullUrl : ROOT_URL + url,
 			data,
 			params,
 			headers: header,
@@ -51,7 +51,7 @@ const API_CALL = ({
 			});
 			axios({
 				method,
-				url: ROOT_URL + url,
+				url: fullUrl ? fullUrl : ROOT_URL + url,
 				data,
 				params,
 				headers: header,

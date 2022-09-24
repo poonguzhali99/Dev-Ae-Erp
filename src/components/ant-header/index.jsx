@@ -33,9 +33,9 @@ import './style.scss';
 import { logOut } from '../../services/auth/action';
 
 const AntHeader = () => {
-	const { isLoggedIn, userDetails } = useSelector(({ authReducer, userDetailsReducer }) => {
+	const { authReducer: { isLoggedIn }, userDetails } = useSelector(({ authReducer, userDetailsReducer }) => {
 		return {
-			isLoggedIn: authReducer.isLoggedIn,
+			authReducer,
 			userDetails: userDetailsReducer.response
 		};
 	}, shallowEqual);
@@ -54,51 +54,6 @@ const AntHeader = () => {
 		setVisibleTop((prev) => !prev);
 	};
 
-	const langMenu = () => (
-			<Menu selectable>
-				{constants.languages.map(({ displayName, simpleCode, sourceCode }, index) => (
-					<Menu.Item
-						key={index}
-						onClick={() => {
-							dispatch(setLanguage(simpleCode));
-							dispatch(setPrefferedLanguage(sourceCode));
-						}}
-					>
-						{displayName}
-					</Menu.Item>
-				))}
-			</Menu>
-		),
-		userMenu = () => (
-			<Menu selectable className="d-none d-md-block">
-				{(userDetails.userType === constants.role.executive ||
-					userDetails.userType === constants.role.director ||
-					userDetails.userType === constants.role.admin) && (
-					<Menu.Item key={0} onClick={() => navigate('/customize')}>
-						<FontAwesomeIcon icon={[ 'fas', 'building' ]} className="mr-2" />{' '}
-						<Translate data="header.organizationSettings" />
-					</Menu.Item>
-				)}
-				<Menu.Item key={1} onClick={() => navigate('/account')}>
-					<FontAwesomeIcon icon={[ 'fas', 'cog' ]} className="mr-2" />{' '}
-					<Translate data="header.accountSettings" />
-				</Menu.Item>
-				<Menu.Item
-					key={2}
-					onClick={() => {
-						API_CALL('get', `user-management/logout/${userDetails.id}`, null, null, ({ data, status }) => {
-							if (status === 200) {
-								dispatch(logOut());
-							}
-						});
-					}}
-				>
-					<FontAwesomeIcon icon={[ 'fas', 'sign-out-alt' ]} className="mr-2" />{' '}
-					<Translate data="header.logout" />
-				</Menu.Item>
-			</Menu>
-		);
-
 	return (
 		<Header color="primary" expand="md" fixed="top">
 			{/* {isLoggedIn && <AntDrawer onClose={showLeftDrawer} visible={visibleLeft} isLoggedIn={isLoggedIn} />} */}
@@ -108,13 +63,11 @@ const AntHeader = () => {
 				</div>
 			)} */}
 
-			<Link to="/">
-				<img
-					className={`logo ${isLoggedIn ? 'bg-white' : 'bg-primary'}`}
-					alt="Logo"
-					src={isLoggedIn ? logo : aeErpLogo}
-				/>
-			</Link>
+			{isLoggedIn && (
+				<Link to="/">
+					<img className="logo" src={logo} />
+				</Link>
+			)}
 
 			{isLoggedIn ? (
 				<Menu className="bg-primary w-100 text-white align-items-center justify-content-end" mode="horizontal">

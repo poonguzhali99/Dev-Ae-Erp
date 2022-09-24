@@ -1,6 +1,7 @@
 // import { loginRequest } from '../../AuthConfig';
 // import { msalInstance } from '../../main';
-import { Store as notification } from 'react-notifications-component';
+import { notification } from 'antd';
+// import { Store as notification } from 'react-notifications-component';
 import _isEmpty from 'lodash/isEmpty';
 
 let options = {
@@ -19,8 +20,16 @@ let options = {
 };
 
 export const Toast = {
-	add: (props) => notification.addNotification({ ...options, ...props }),
-	remove: (id) => notification.removeNotification(id)
+	add: (props) => {
+		const { type, message, title, duration } = props;
+		notification[type]({
+			message: title ? title : type.toUpperCase(),
+			description: message,
+			duration: duration ? duration : 3,
+			top: 35
+		});
+	},
+	remove: () => notification.destroy()
 };
 
 export const getColorCode = (status) => {

@@ -40,9 +40,9 @@ const Login = () => {
 			<Formik
 				initialValues={
 					window.location.host.search('localhost') >= 0 ? (
-						{ EmailId: 'admin.bp@sas.com', Password: 'Ae$12345' }
+						{ EmailId: 'admin.bp@sas.com', Password: 'Ae$12345', agree: true }
 					) : (
-						{ EmailId: '', Password: '' }
+						{ EmailId: '', Password: '', agree: true }
 					)
 				}
 				validate={(values) => {
@@ -51,11 +51,11 @@ const Login = () => {
 					if (!values.Password) errors.Password = 'Required';
 					else if (values.Password.length > 40)
 						errors.Password = 'Password should not be more than 40 Charecters';
-					// if (!values.Checkbox) errors.Checkbox = 'Required';
+					if (!values.agree) errors.agree = 'Should accept Terms & Condition';
 					return errors;
 				}}
 				onSubmit={(values) => {
-					delete values.Checkbox;
+					delete values.agree;
 					setloginError(false);
 					setLoader(true);
 					API_CALL({
@@ -69,7 +69,7 @@ const Login = () => {
 										save('session', values.EmailId, { secure: true });
 										save('userdetails', data);
 										setLoader(false);
-										dispatch(logIn(data));
+										dispatch(logIn(values.EmailId));
 									} else {
 										setLoader(false);
 										setloginError(true);
@@ -138,10 +138,16 @@ const Login = () => {
 									</Space>
 									{/* </div> */}
 									<FormField
-										name="Checkbox"
+										name="agree"
 										type="checkbox"
 										value={true}
-										label={`I have read and accept the Terms & Conditions and Privacy Policy of AE ERP Portal.`}
+										customLabel={
+											<div>
+												I have read and accept the{' '}
+												<Typography.Link> Terms & Conditions</Typography.Link> and{' '}
+												<Typography.Link>Privacy Policy</Typography.Link> of AE ERP Portal.
+											</div>
+										}
 										required={true}
 									/>
 									<img
