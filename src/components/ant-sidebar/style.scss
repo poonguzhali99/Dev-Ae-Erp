@@ -1,33 +1,25 @@
 .ant-layout-sider {
-	margin-top: 100px;
-	height: calc(calc(var(--vh, 1vh) * 100)-100px);
-	background: $white !important;
-	.ant-menu {
-		height: calc(calc(var(--vh, 1vh) * 100) - 100px);
-		width: 200px;
-		box-shadow: 0px 0px 10px rgba($color: $secondary, $alpha: 0.2);
-		overflow: auto;
-	}
-	.menu-title {
-		font-size: medium;
-		font-weight: 600;
-	}
-	.ant-collapse-content > .ant-collapse-content-box {
-		flex-wrap: wrap;
-		padding: 0px 0px 0px 40px;
-		font-size: small;
-		font-weight: 600;
-	}
+	height: calc(calc(var(--vh, 1vh) * 100)-115px);
+	background: $white;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	.ant-card {
+		background-color: transparent;
+		margin-top: 10px;
 
-	.ant-btn.ant-btn-block {
-		text-align: left;
-		padding-left: 0px;
-		white-space: pre-wrap;
-		height: auto;
-		// font-weight: 600;
+		border-top-right-radius: 8px;
+		.ant-card-head {
+			background-color: $cardHeader;
+			border-bottom-color: $warning;
+			color: $dark;
+			font-weight: 600;
+			// border-top-left-radius: 8px;
+			border-top-right-radius: 8px;
+			padding: 5px;
+			min-height: 0;
+			.ant-card-head-title {
+				padding: 0;
+				// padding-top: 10px;
+			}
+		}
 	}
-	// .ant-layout-sider-children .ant-menu.ant-menu-inline-collapsed {
-	// 	width: 50px;
-	// 	border: none;
-	// }
 }

@@ -28,15 +28,15 @@
 }
 .ant-layout-content {
 	background-color: $white;
-	margin-top: 100px;
-	height: calc(calc(var(--vh, 1vh) * 100) - 100px);
+	margin-top: 115px;
+	height: calc(calc(var(--vh, 1vh) * 100) - 115px);
 	overflow-x: hidden;
 }
 
 .public-routes {
 	.ant-layout-content {
-		margin-top: 100px;
-		height: calc(calc(var(--vh, 1vh) * 100) - 100px);
+		margin-top: 65px;
+		height: calc(calc(var(--vh, 1vh) * 100) - 65px);
 	}
 	&.ant-layout {
 		background: none !important;
@@ -74,66 +74,32 @@
 
 .ant-table-wrapper {
 	.ant-table-thead > tr > th {
+		background-color: $cardHeader;
+		color: $dark;
 		font-weight: 600;
-		color: $muted;
+		font-size: 14px;
 		padding: 5px 2px;
 	}
 	.ant-table-tbody > tr > td {
 		padding: 2px;
 	}
 	.ant-table-content {
-		overflow: auto;
+		overflow: auto hidden;
 	}
 }
-.ant-tag {
-	border-radius: 15px;
-	border: none;
-	font-size: 14px;
-	padding: 0.1rem 1.5rem;
-	text-align: center;
-	width: 100%;
-	&.provider {
-		background-color: lighten($color: $primary, $amount: 50);
-	}
-	&.medicalAssistant {
-		background-color: lighten($color: $warning, $amount: 40);
-	}
-	&.admin {
-		background-color: lighten($color: $success, $amount: 50);
-	}
-	&.executive {
-		background-color: lighten($color: $secondary, $amount: 50);
-	}
-	&.director {
-		background-color: lighten($color: $primary, $amount: 10);
-	}
+
+.ant-menu-submenu-selected {
+	color: $primary !important;
 }
-.antd-status {
-	.status {
-		padding: 1.6px 1.6px;
-		text-align: center;
-		font-size: 14px;
-		border-radius: 20px;
-		cursor: default;
-		&.success {
-			color: $success;
-			background-color: #29a74717;
-		}
-		&.pending {
-			color: #967000;
-			background-color: #fdf6e2;
-		}
-		&.suspended {
-			color: #771414;
-			background-color: #eca69073;
-		}
-	}
-}
-.antd-table {
-	th {
-		background-color: lighten($color: $primary, $amount: 50) !important;
-		color: $primary !important;
-	}
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active:after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-open:after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected:after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover:after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-active:after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open:after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected:after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu:hover:after {
+	border-bottom: 2px solid $primary;
 }
 .ant-checkbox-checked {
 	.ant-checkbox-inner {

@@ -1,5 +1,24 @@
 import React, { useEffect, useState, Suspense } from 'react';
-import { Card, Spin, Row, Button, Table, Input, Layout, Form, Empty, notification, Tooltip, Space } from 'antd';
+import {
+	List,
+	Card,
+	Image,
+	Divider,
+	Spin,
+	Row,
+	Col,
+	Button,
+	Table,
+	Input,
+	InputNumber,
+	Pagination,
+	Layout,
+	Form,
+	Empty,
+	notification,
+	Tooltip,
+	Space
+} from 'antd';
 import { Formik } from 'formik';
 import { Excel } from 'antd-table-saveas-excel';
 
@@ -17,9 +36,12 @@ import {
 } from '../../../services/academic-details/action';
 import { constants } from '../../../utils/constants';
 import { useRef } from 'react';
+import axios from 'axios';
+import TableContent from './TableContent';
 import AntSidebar from '../../../components/ant-sidebar';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 
-const MarksEntry = () => {
+const MarksEntryStatus = () => {
 	const {
 		authReducer: { userToken },
 		userDetails,
@@ -67,7 +89,6 @@ const MarksEntry = () => {
 
 	const navigate = useNavigate(),
 		dispatch = useDispatch();
-
 	const [ loader, setLoader ] = useState(false),
 		[ searchLoader, setSearchLoader ] = useState(false),
 		[ cellLoader, setCellLoader ] = useState(false),
@@ -94,130 +115,151 @@ const MarksEntry = () => {
 			let tempColumn = [];
 
 			Object.entries(assesmentList[0]).forEach(([ key, value ], index) => {
-				if (index < 4) {
+				if (index != Object.entries(assesmentList[0]).length - 1) {
 					tempColumn.push({
 						title: key,
 						dataIndex: key,
-						fixed: 'left',
-						width: key == 'Student Name' ? 180 : key == 'Student ID' ? 100 : 80,
-						align: key == 'Student Name' ? 'left' : 'center',
+						// fixed: 'left',
+						// width: key == 'Marks Entry Status' ? 180 : key == 'Student ID' ? 100 : 80,
+						width: 180,
+						align: 'center',
 						render: (text) => <a className="p-1">{text}</a>
 					});
-				} else {
-					let title = key + '\n (Max Marks:' + firstObj[key] + ')';
-					if (key != 'key')
-						tempColumn.push({
-							title,
-							dataIndex: key,
-							align: 'center',
-							width: 120,
-							render: (_, record) => {
-								return (
-									<Form.Item
-										name={key + record.key}
-										rules={[
-											{
-												// required: isEditing(record) && true,
-												message: '',
-												validator: (_, value) => {
-													// console.log('value', value);
-													if (_isEmpty(value)) {
-														return Promise.reject(
-															new Error('Marks entered should not be empty')
-														);
-													} else if (value > parseInt(firstObj[key]) || value < 0) {
-														return Promise.reject(
-															new Error('Price must be greater than zero!')
-														);
-													} else if (
-														value.split('.').length > 1 &&
-														value.split('.')[1].length > 1
-													) {
-														return Promise.reject(
-															new Error(
-																'Only single digits are allowed after the decimal point'
-															)
-														);
-													} else {
-														return Promise.resolve();
-													}
-												}
-											}
-										]}
-									>
-										<Input
-											maxLength={4}
-											name={key + record.key}
-											ref={inputRef}
-											className="text-center"
-											defaultValue={record[key]}
-											disabled={!isEditing(record)}
-											// onChange={(e) => {
-											// 	if (e.target.value > parseInt(firstObj[key]) || e.target.value < 0) {
-											// 		console.log('Error');
-											// 		inputRef.current.focus({
-											// 			cursor: 'all'
-											// 		});
-											// 		// notification.error({
-											// 		// 	message: 'Invalid Input',
-											// 		// 	description:
-											// 		// 		'Marks entered should not be greater than Max Marks'
-											// 		// });
-											// 		// e.preventDefault();
-											// 		return (e.target.value = '');
-											// 	}
-											// }}
-											onKeyPress={(event) => {
-												// let decimalRegax = /^[0-9ABMLEXNabmlexn.]+\.?[0-9]*$/;
-												if (!/[0-9ABMLEXN.][\.\d]*(,\d+)?(\d*)/.test(event.key)) {
-													// if (decimalRegax.test(event.key) == false) {
-
-													event.preventDefault();
-												}
-											}}
-											onBlur={async (e) => {
-												let val = e.target.value;
-
-												if (val > parseInt(firstObj[key])) {
-													console.log('Error');
-													form.setFieldValue(key + record.key, '');
-													notification.error({
-														message: 'Invalid Input',
-														description:
-															'Marks entered should not be greater than Max Marks'
-													});
-												} else if (val.split('.').length > 1 && val.split('.')[1].length > 1) {
-													form.setFieldValue(key + record.key, '');
-													notification.error({
-														message: 'Invalid Input',
-														description:
-															'Only single digits are allowed after the decimal point'
-													});
-												} else {
-													try {
-														// const row = await form.validateFields();
-														const newData = [ ...activeRows ];
-														const index = newData.findIndex(
-															(item) => record.key === item['key']
-														);
-														let selectedObj = newData[index];
-														selectedObj[key] = val;
-														newData[index] = selectedObj;
-														setActiveRows(newData);
-														console.log('newData', newData);
-													} catch (errInfo) {
-														console.log('Validate Failed:', errInfo);
-													}
-												}
-											}}
-											style={{ width: 70 }}
-											// suffix={<Spin spinning={cellLoader} size="small" />}
-										/>
-									</Form.Item>
-								);
-							}
-						});
 				}
+				//  else {
+				// 	let title = key + '\n (Max Marks:' + firstObj[key] + ')';
+				// 	if (key != 'key')
+				// 		tempColumn.push({
+				// 			title: key,
+				// 			dataIndex: key,
+				// 			align: 'center',
+				// 			width: 180
+				// 			// render: (_, record) => {
+				// 			// 	return (
+				// 			// 		<Form.Item
+				// 			// 			name={key + record.key}
+				// 			// 			rules={[
+				// 			// 				{
+				// 			// 					// required: isEditing(record) && true,
+				// 			// 					message: '',
+				// 			// 					validator: (_, value) => {
+				// 			// 						// console.log('value', value);
+				// 			// 						if (_isEmpty(value)) {
+				// 			// 							return Promise.reject(
+				// 			// 								new Error('Marks entered should not be empty')
+				// 			// 							);
+				// 			// 						} else if (value > parseInt(firstObj[key]) || value < 0) {
+				// 			// 							return Promise.reject(
+				// 			// 								new Error('Price must be greater than zero!')
+				// 			// 							);
+				// 			// 						} else if (
+				// 			// 							value.split('.').length > 1 &&
+				// 			// 							value.split('.')[1].length > 1
+				// 			// 						) {
+				// 			// 							return Promise.reject(
+				// 			// 								new Error(
+				// 			// 									'Only single digits are allowed after the decimal point'
+				// 			// 								)
+				// 			// 							);
+				// 			// 						} else {
+				// 			// 							return Promise.resolve();
+				// 			// 						}
+				// 			// 					}
+				// 			// 				}
+				// 			// 			]}
+				// 			// 		>
+				// 			// 			<Input
+				// 			// 				maxLength={4}
+				// 			// 				name={key + record.key}
+				// 			// 				ref={inputRef}
+				// 			// 				className="text-center"
+				// 			// 				defaultValue={record[key]}
+				// 			// 				disabled={!isEditing(record)}
+				// 			// 				// onChange={(e) => {
+				// 			// 				// 	if (e.target.value > parseInt(firstObj[key]) || e.target.value < 0) {
+				// 			// 				// 		console.log('Error');
+				// 			// 				// 		inputRef.current.focus({
+				// 			// 				// 			cursor: 'all'
+				// 			// 				// 		});
+				// 			// 				// 		// notification.error({
+				// 			// 				// 		// 	message: 'Invalid Input',
+				// 			// 				// 		// 	description:
+				// 			// 				// 		// 		'Marks entered should not be greater than Max Marks'
+				// 			// 				// 		// });
+				// 			// 				// 		// e.preventDefault();
+				// 			// 				// 		return (e.target.value = '');
+				// 			// 				// 	}
+				// 			// 				// }}
+				// 			// 				onKeyPress={(event) => {
+				// 			// 					// let decimalRegax = /^[0-9ABMLEXNabmlexn.]+\.?[0-9]*$/;
+				// 			// 					if (!/[0-9ABMLEXN.][\.\d]*(,\d+)?(\d*)/.test(event.key)) {
+				// 			// 						// if (decimalRegax.test(event.key) == false) {
+
+				// 			// 						event.preventDefault();
+				// 			// 					}
+				// 			// 				}}
+				// 			// 				onBlur={async (e) => {
+				// 			// 					let val = e.target.value;
+				// 			// 					// if (isNaN(parseInt(val))) {
+				// 			// 					// 	if (val != 'AB' && val != 'ML' && val != 'EX' && val != 'NA') {
+				// 			// 					// 		form.setFieldValue(key + record.key, '');
+				// 			// 					// 	} else {
+				// 			// 					// 		try {
+				// 			// 					// 			// const row = await form.validateFields();
+				// 			// 					// 			const newData = [ ...activeRows ];
+				// 			// 					// 			const index = newData.findIndex(
+				// 			// 					// 				(item) => record.key === item['key']
+				// 			// 					// 			);
+				// 			// 					// 			let selectedObj = newData[index];
+				// 			// 					// 			selectedObj[key] = val;
+				// 			// 					// 			newData[index] = selectedObj;
+				// 			// 					// 			setActiveRows(newData);
+				// 			// 					// 			console.log('newData', newData);
+				// 			// 					// 		} catch (errInfo) {
+				// 			// 					// 			console.log('Validate Failed:', errInfo);
+				// 			// 					// 		}
+				// 			// 					// 	}
+				// 			// 					// }
+				// 			// 					if (val > parseInt(firstObj[key])) {
+				// 			// 						console.log('Error');
+				// 			// 						form.setFieldValue(key + record.key, '');
+				// 			// 						notification.error({
+				// 			// 							message: 'Invalid Input',
+				// 			// 							description:
+				// 			// 								'Marks entered should not be greater than Max Marks'
+				// 			// 						});
+				// 			// 					} else if (val.split('.').length > 1 && val.split('.')[1].length > 1) {
+				// 			// 						form.setFieldValue(key + record.key, '');
+				// 			// 						notification.error({
+				// 			// 							message: 'Invalid Input',
+				// 			// 							description:
+				// 			// 								'Only single digits are allowed after the decimal point'
+				// 			// 						});
+				// 			// 					} else {
+				// 			// 						try {
+				// 			// 							// const row = await form.validateFields();
+				// 			// 							const newData = [ ...activeRows ];
+				// 			// 							const index = newData.findIndex(
+				// 			// 								(item) => record.key === item['key']
+				// 			// 							);
+				// 			// 							let selectedObj = newData[index];
+				// 			// 							selectedObj[key] = val;
+				// 			// 							newData[index] = selectedObj;
+				// 			// 							setActiveRows(newData);
+				// 			// 							console.log('newData', newData);
+				// 			// 						} catch (errInfo) {
+				// 			// 							console.log('Validate Failed:', errInfo);
+				// 			// 						}
+				// 			// 					}
+				// 			// 				}}
+				// 			// 				style={{ width: 70 }}
+				// 			// 				// suffix={<Spin spinning={cellLoader} size="small" />}
+				// 			// 			/>
+				// 			// 		</Form.Item>
+				// 			// 	);
+				// 			// }
+				// 		});
+				// }
 			});
 			setColumn(tempColumn);
 		}
@@ -257,11 +299,17 @@ const MarksEntry = () => {
 		setEditingKey(record.key);
 	};
 	const isEditing = (record) => {
+		// console.log('record', record);
+		// return record.key === editingKey;
 		return selectedRowKeys.includes(record.key);
 	};
 
 	const columns = column;
 
+	// const reportColumns = column.map((col) => {
+	// 	delete col.render;
+	// 	return col;
+	// });
 	const mergedColumns = columns.map((col) => {
 		if (!col.editable) {
 			return col;
@@ -307,97 +355,6 @@ const MarksEntry = () => {
 		[ activeAcademicYear, activeBranch ]
 	);
 
-	const onSelectChange = (newSelectedRowKeys, selectedRows) => {
-		setActiveRows(selectedRows);
-		setSelectedRowKeys(newSelectedRowKeys);
-		selectedRows.map((row) => edit(row));
-	};
-
-	const rowSelection = {
-		selectedRowKeys,
-		onChange: onSelectChange,
-		selections: [ Table.SELECTION_ALL, Table.SELECTION_INVERT, Table.SELECTION_NONE ]
-	};
-
-	const submitTable = () => {
-		setLoader(true);
-		let payload = {
-			AcademicYear: activeAcademicYear,
-			BranchCode: activeBranch.id,
-			ClassCode: serachFormikRef.current.values.class,
-			Section: serachFormikRef.current.values.section,
-			Period: serachFormikRef.current.values.cycle,
-			SubjectCode: serachFormikRef.current.values.subject,
-			TestCategory: serachFormikRef.current.values.type,
-			StudnetAssessmentMarks: [],
-			StudnetAssessmentData: null,
-			Source: null,
-			UpdatedBy: userToken
-		};
-
-		activeRows.map((row) => {
-			Object.entries(row).forEach(([ key, value ], index) => {
-				if (key != 'S No' && key != 'Student ID' && key != 'Roll No' && key != 'Student Name' && key != 'key') {
-					let MaxMarks = '';
-					Object.entries(assesmentList[0]).forEach(([ key1, value1 ]) => {
-						if (key1 == key) {
-							return (MaxMarks = value1);
-						}
-					});
-					payload.StudnetAssessmentMarks.push({
-						StudnetCode: row['Student ID'],
-						TestName: key,
-						MaxMarks,
-						StudnetMarks: value,
-						StudentData: null
-					});
-				}
-			});
-		});
-		// console.log('StudnetAssessmentMarks', payload, JSON.stringify(payload));
-
-		API_CALL({
-			method: 'post',
-			url: 'Assessment/SaveAssessmentMarks',
-			data: payload,
-			callback: async ({ status, data }) => {
-				setLoader(false);
-				if (status == 200) {
-					if (data.SuccessCode != '') {
-						setActiveRows([]);
-						setSelectedRowKeys([]);
-						serachFormikRef.current.handleSubmit();
-						notification.success({
-							message: 'Data Saved',
-							description: data.Result
-						});
-					}
-				} else {
-					notification.error({
-						message: 'Data Not Saved',
-						description: data.ErrorDescription
-					});
-				}
-			}
-		});
-	};
-	const exportToExcel = () => {
-		let data = assesmentList.slice(1).map((li) => {
-			delete li.key;
-			return li;
-		});
-		const excel = new Excel();
-		excel
-			.addSheet('Marks Entry')
-			.addColumns(
-				column.map((col) => {
-					delete col.render;
-					return col;
-				})
-			)
-			.addDataSource(data, { str2num: true })
-			.saveAs(`Marks of ${serachFormikRef.current.values.class}-${serachFormikRef.current.values.section}.xlsx`);
-	};
 	return (
 		<Layout>
 			<AntSidebar
@@ -421,7 +378,7 @@ const MarksEntry = () => {
 								if (!values.cycle) errors.cycle = 'Required';
 								if (!values.area) errors.area = 'Required';
 								if (!values.subject) errors.subject = 'Required';
-								if (!values.type) errors.type = 'Required';
+								// if (!values.type) errors.type = 'Required';
 
 								return errors;
 							}}
@@ -430,7 +387,7 @@ const MarksEntry = () => {
 								setSearchLoader(true);
 								API_CALL({
 									method: 'get',
-									url: 'Assessment/GetAssessment',
+									url: 'Assessment/GetAssessmentmarksstatus',
 									params: {
 										UserMailId: userToken,
 										AcademicYear: activeAcademicYear,
@@ -439,12 +396,12 @@ const MarksEntry = () => {
 										Section: values.section,
 										Period: values.cycle,
 										Subject: values.subject,
-										catg: values.type
+										catg: values.area
 									},
 									callback: async ({ status, data }) => {
 										setSearchLoader(false);
 										if (status === 200 && data.ARows != null) {
-											data.ARows.map((da, index) => (da.key = index));
+											// data.ARows.map((da, index) => (da.key = index));
 											setAssesmentList(data.ARows);
 											setActiveRows([]);
 											setSelectedRowKeys([]);
@@ -639,7 +596,7 @@ const MarksEntry = () => {
 											}}
 										/>
 
-										<FormField
+										{/* <FormField
 											name="type"
 											type="select"
 											placeholder="Assesment Type"
@@ -647,12 +604,11 @@ const MarksEntry = () => {
 											list={categories}
 											keyword="U_VALUS"
 											displayName="U_Desc"
-										/>
+										/> */}
 										<Space>
 											<Button type="primary " onClick={handleSubmit}>
 												Search
 											</Button>
-
 											<Button
 												className=" "
 												onClick={() => {
@@ -713,7 +669,7 @@ const MarksEntry = () => {
 							}
 						>
 							<Spin spinning={cellLoader}>
-								{/* <div className=" justify-content-between">
+								{/* <Row className=" justify-content-between">
 									<div>
 										<Button type="link">
 											1. Only characters [AB, EX, ML, NA, 0-9] are accepted.
@@ -721,48 +677,32 @@ const MarksEntry = () => {
 										<Button type="link">2. Negative numbers are not accepted</Button>
 										<Button type="link">3. Only one decimal point value accepted</Button>
 									</div>
-									<div>
-										<Tooltip
-											// className="lengend"
-											placement="left"
-											title={'AB- Absent, ML- Medical Leave, EX-Exempted, NA-Not Applicable'}
-											// color={''}
-										>
-											<Button type="link">Legend</Button>
-										</Tooltip>
-									</div>
-								</div> */}
+									<Tooltip
+										// className="lengend"
+										placement="left"
+										title={'AB- Absent, ML- Medical Leave, EX-Exempted, NA-Not Applicable'}
+										// color={''}
+									>
+										<Button type="link">Legend</Button>
+									</Tooltip>
+								</Row> */}
 
 								<Form
 									form={form}
 									// scrollToFirstError={true}
 									// onFinish={(values) => console.log('value', values)}
 								>
-									<div className="notes">
-										<Tooltip
-											// className="lengend"
-											placement="left"
-											title={'AB- Absent, ML- Medical Leave, EX-Exempted, NA-Not Applicable'}
-											// color={''}
-										>
-											<div>Legend</div>
-										</Tooltip>
-										<Tooltip
-											// className="lengend"
-											placement="right"
-											title={
-												'1. Only characters [AB, EX, ML, NA, 0-9] are accepted. 2. Negative numbers are not accepted 3. Only one decimal point value accepted'
-											}
-											// color={''}
-										>
-											<div>Instruction</div>
-										</Tooltip>
-									</div>
 									<Table
 										bordered
-										rowSelection={rowSelection}
+										// rowSelection={rowSelection}
 										columns={mergedColumns}
 										dataSource={assesmentList.slice(1)}
+										rowKey={'Marks Entry Status'}
+										// components={{
+										// 	body: {
+										// 		cell: EditableCell
+										// 	}
+										// }}
 										pagination={{
 											showSizeChanger: true,
 											pageSizeOptions: [ '10', '25', '50' ],
@@ -771,14 +711,14 @@ const MarksEntry = () => {
 										}}
 										scroll={{ y: 430, x: 'fit-content' }}
 									/>
-									<Row justify="end" className="mt-3">
+									{/* <Row justify="end" className="mt-3">
 										<Button type="primary" onClick={submitTable}>
 											Submit
 										</Button>
 										<Button className="ml-3" onClick={exportToExcel}>
 											Export
 										</Button>
-									</Row>
+									</Row> */}
 								</Form>
 							</Spin>
 						</Card>
@@ -791,4 +731,4 @@ const MarksEntry = () => {
 	);
 };
 
-export default MarksEntry;
+export default MarksEntryStatus;

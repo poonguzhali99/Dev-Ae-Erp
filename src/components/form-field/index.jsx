@@ -123,12 +123,12 @@ const generateComponent = (data) => {
 						allowClear={false}
 						disabled={disabled}
 						getPopupContainer={() => document.getElementById('select')}
-						placeholder={!hideDefaultOption && <React.Fragment>Select {placeholder}</React.Fragment>}
+						placeholder={!hideDefaultOption && <React.Fragment>{placeholder}</React.Fragment>}
 						optionFilterProp="children"
 						filterOption={(key, list) => {
 							return list.children.toString().toLowerCase().indexOf(key.toString().toLowerCase()) >= 0;
 						}}
-						defaultValue={field.value && field.value}
+						defaultValue={field.value || ''}
 						onSearch={(value) => {
 							form.setFieldValue(name, value);
 						}}
@@ -141,7 +141,7 @@ const generateComponent = (data) => {
 							handleOnBlur && handleOnBlur(value);
 						}}
 					>
-						{!hideDefaultOption && <Option value="">Select {placeholder}</Option>}
+						{!hideDefaultOption && <Option value="">{placeholder}</Option>}
 						{optionList}
 					</Select>
 				</Form.Item>

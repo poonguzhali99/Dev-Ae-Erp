@@ -201,7 +201,7 @@ const TableContent = ({ tableData }) => {
 				dataSource={data.slice(1)}
 				columns={mergedColumns}
 				rowClassName="editable-row"
-				scroll={{ y: 200, x: 1000 }}
+				scroll={{ y: 370, x: 1000 }}
 				pagination={{ pageSize: 50 }}
 				// pagination={{
 				// 	onChange: cancel

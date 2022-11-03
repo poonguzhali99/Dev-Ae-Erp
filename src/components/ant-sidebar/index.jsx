@@ -6,11 +6,12 @@ import { Layout, Collapse, List, Button } from 'antd';
 const { Sider } = Layout;
 import './style.scss';
 
-const AntSidebar = () => {
+const AntSidebar = ({ Children }) => {
 	const navigate = useNavigate();
 	return (
-		<Sider>
-			<Collapse accordion className="ant-menu">
+		<Sider width="300px">
+			{Children}
+			{/* <Collapse accordion className="ant-menu">
 				{menuList.map((menu, index) => {
 					return (
 						<Collapse.Panel className="menu-title" header={menu.MenuAuthorization} key={index}>
@@ -29,7 +30,7 @@ const AntSidebar = () => {
 						</Collapse.Panel>
 					);
 				})}
-			</Collapse>
+			</Collapse> */}
 		</Sider>
 	);
 };

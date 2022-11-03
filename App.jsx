@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Fragment, Suspense, lazy, useCallback } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import Sound from 'react-sound';
 import _isEmpty from 'lodash/isEmpty';
 import _get from 'lodash/get';
 import { load, save } from 'react-cookies';
@@ -22,16 +21,9 @@ const ContactUs = lazy(() => import('./src/pages/public/static-content/terms'));
 // Actions
 
 // Others
-import API_CALL from './src/services';
 import { routes } from './routes';
-import { constants } from './src/utils/constants';
-import sound from './src/assets/sounds/pristine.mp3';
 
 import 'antd/dist/antd.variable.min.css';
-// import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-// import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
-// import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
-// import 'react-bootstrap-typeahead/css/Typeahead.css';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './src/assets/common_styles/antdOverrideStyles.scss';
 import 'assets/common_styles/fluent-ui.scss';
@@ -42,6 +34,11 @@ import './src/assets/theams/leetmp.scss';
 import './src/assets/theams/slesks.scss';
 import './src/assets/theams/wma.scss';
 import './src/assets/theams/slesak.scss';
+
+// import '~antd/es/style/themes/default.less';
+// import '~antd/dist/antd.less'; // Import Ant Design styles by less entry
+// import './src/assets/theams/default.less';
+// @import 'your-theme-file.less'; // variables to override above
 
 import { logIn, logOut } from './src/services/auth/action';
 // import Header from './src/components/header';
@@ -114,9 +111,6 @@ const App = React.memo(() => {
 	useEffect(
 		() => {
 			if (isLoggedIn) {
-				// dispatch(getAccessControl());
-				// dispatch(getUserDetails());
-				// dispatch(getStaticContent());
 			}
 		},
 		[ isLoggedIn ]
@@ -132,16 +126,15 @@ const App = React.memo(() => {
 		isLoggedIn ? (
 			<Layout>
 				<AntHeader expand={expand} />
-				{/* <Header /> */}
 				<Layout>
-					<AntSidebar expand={expand} onCollapse={onCollapse} />
+					{/* <AntSidebar expand={expand} onCollapse={onCollapse} /> */}
 					<Content className="site-layout-background">
 						<div className="content-layout">
 							<Routes>
 								{routes.map((route, index) => (
 									<Route key={index} path={route.path} element={<route.element />} />
 								))}
-								<Route path="*" element={<Navigate to="/AssesmentMarksEntry" replace />} />
+								<Route path="*" element={<Navigate to="/Dashboard" replace />} />
 							</Routes>
 						</div>
 					</Content>
@@ -169,21 +162,17 @@ const App = React.memo(() => {
 	return (
 		<React.Fragment>
 			<Fragment>
-				{/* <Sound
-					url={sound}
-					playStatus={soundReducer.status ? 'PLAYING' : 'STOPPED'}
-					autoLoad={true}
-					loop={true}
-				/> */}
-				<Suspense
-					fallback={
-						<div className=" d-flex justify-content-center app-spin">
-							<Spin size="large" spinning={true} />
-						</div>
-					}
-				>
-					{renderSection()}
-				</Suspense>
+				<ConfigProvider>
+					<Suspense
+						fallback={
+							<div className=" d-flex justify-content-center app-spin">
+								<Spin size="large" spinning={true} />
+							</div>
+						}
+					>
+						{renderSection()}
+					</Suspense>
+				</ConfigProvider>
 			</Fragment>
 		</React.Fragment>
 	);
