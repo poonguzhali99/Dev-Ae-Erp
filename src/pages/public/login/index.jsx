@@ -14,6 +14,7 @@ import { logIn } from '../../../services/auth/action';
 import bpLogin from '../../../assets/images/bp-login.png';
 // import Header from '../../components/header';
 import { save } from 'react-cookies';
+import { getBranch, setActiveBranch } from '../../../services/academic-details/action';
 
 const Login = () => {
 	let pathName = window.location.pathname;
@@ -70,6 +71,8 @@ const Login = () => {
 										save('userdetails', data);
 										setLoader(false);
 										dispatch(logIn(values.EmailId));
+										dispatch(getBranch());
+										dispatch(setActiveBranch(data.Userbranch));
 									} else {
 										setLoader(false);
 										setloginError(true);

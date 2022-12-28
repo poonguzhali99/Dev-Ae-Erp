@@ -7,15 +7,9 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "webpack-dev-server --hot --config ./webpack/webpack.local.config.js",
 		"prod-build": "webpack --config ./webpack/webpack.prod.config.js",
-		"dev-build": "webpack --config ./webpack/webpack.dev.config.js",
-		"test-build": "webpack --config ./webpack/webpack.test.config.js",
-		"demo-build": "webpack --config ./webpack/webpack.demo.config.js"
+		"dev-build": "webpack --config ./webpack/webpack.dev.config.js"
 	},
-	"keywords": [
-		"reactjs",
-		"chat",
-		"videochat"
-	],
+	"keywords": [ "reactjs", "chat", "videochat" ],
 	"author": "Srinivasan S",
 	"license": "ISC",
 	"dependencies": {
@@ -25,8 +19,8 @@
 		"@fortawesome/free-regular-svg-icons": "^5.13.0",
 		"@fortawesome/free-solid-svg-icons": "^5.13.0",
 		"@fortawesome/react-fontawesome": "^0.1.9",
-		"antd": "^4.21.0",
-		"antd-img-crop": "^4.2.3",
+		"antd": "^5.1.0",
+		"antd-img-crop": "^4.2.8",
 		"antd-table-saveas-excel": "^2.2.1",
 		"axios": "^0.27.2",
 		"bem-cn": "^2.1.3",

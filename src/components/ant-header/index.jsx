@@ -54,17 +54,48 @@ const AntHeader = () => {
 	const items = [
 		{
 			label: 'Admission',
-			key: 'mail',
+			key: 'Admission',
 			// icon: <ContainerOutlined />,
 
 			children: [
 				{
+					label: 'Admission Planning View',
+					key: 'AdmissionPlanningView'
+				},
+				{
+					label: 'Consolidated Stages Report',
+					key: 'ConsolidatedStagesReport'
+				},
+				{
+					label: 'Detailed Stages Report',
+					key: 'DetailedStagesReport'
+				},
+				{
+					label: 'Admission Verification',
+					key: 'AdmissionVerification'
+				},
+				{
 					label: 'Admission Setup',
-					key: 'setup'
+					key: 'AdmissionSetup'
 				},
 				{
 					label: 'Admission Count',
-					key: 'count'
+					key: 'AdmissionCount'
+				}
+			]
+		},
+		{
+			label: 'Student Management',
+			key: 'student',
+			// icon: <ReadOutlined />,
+			children: [
+				{
+					label: 'Student Details',
+					key: 'StudentManagement'
+				},
+				{
+					label: 'Student Count Report',
+					key: 'StudentCountReport'
 				}
 			]
 		},
@@ -87,10 +118,43 @@ const AntHeader = () => {
 				}
 			]
 		},
+
+		{
+			label: 'Attendance',
+			key: 'attendance',
+			// icon: <ReadOutlined />,
+			children: [
+				{
+					label: 'Instructions',
+					key: 'AttendanceInstructions'
+				},
+				{
+					label: 'Mark Attendance',
+					key: 'MarkAttendance'
+				},
+				{
+					label: 'Attendance Report',
+					key: 'AttendanceReport'
+				}
+			]
+		},
+		{
+			label: 'Sub-Teacher MApping',
+			key: 'SubTeacherMapping',
+			children: [
+				{
+					label: 'Create, View & Approve',
+					key: 'TeacherMapping'
+				},
+				{
+					label: 'Teacher Mapping Report',
+					key: 'MappingReport'
+				}
+			]
+		},
 		{
 			label: 'Notification Group',
 			key: 'SubMenu'
-			// icon: <MessageOutlined />
 		}
 	];
 

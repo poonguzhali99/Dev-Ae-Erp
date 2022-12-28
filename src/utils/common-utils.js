@@ -3,6 +3,7 @@
 import { notification } from 'antd';
 // import { Store as notification } from 'react-notifications-component';
 import _isEmpty from 'lodash/isEmpty';
+import moment from 'moment';
 
 let options = {
 	title: '',
@@ -32,60 +33,38 @@ export const Toast = {
 	remove: () => notification.destroy()
 };
 
-export const getColorCode = (status) => {
-	switch (status) {
-		case 'Prospective Rs':
-			return 'text-blue';
-		case 'Risk Categoy':
-			return 'text-red';
-		case 'Ed Visit Risk':
-			return 'text-dark-blue';
-		case 'Inpt Admit Risk':
-			return 'text-orange';
-		default:
-			return 'text-muted';
+export const weeksInMonth = (monthIndex, year) => {
+	// Code for getting week list data for month :
+	function getMomentDate(start, end) {
+		return {
+			startDate: moment([ year, monthIndex - 1, start ]),
+			endDate: moment([ year, monthIndex - 1, end ])
+		};
 	}
-};
 
-export const createAPIActionTypes = (prefix) =>
-	[ 'REQ', 'RES', 'FAIL' ].reduce((acc, type) => ({ ...acc, [type]: `${prefix}_API_${type}` }), {});
+	function weeks(month) {
+		const weekStartEndDay = [];
+		const first = month.day() == 0 ? 6 : month.day() - 1;
+		let day = 7 - first;
+		const last = month.daysInMonth();
+		const count = (last - day) / 7;
 
-export const createAccessorsActionTypes = (prefix) =>
-	[ 'GET', 'SET' ].reduce((acc, type) => ({ ...acc, [type]: `${prefix}_API_${type}` }), {});
-
-export const getGenderDescription = (genderCode) => {
-	return genderCode && genderCode.toLowerCase() === 'f' ? 'Female' : 'Male';
-};
-
-export const getUserDetails = async () => {
-	const accounts = msalInstance.getAllAccounts();
-	const { name = '', username = '' } = accounts && accounts.length > 0 && accounts[0];
-
-	return {
-		name,
-		username
-	};
-};
-
-// export const getAccessToken = async () => {
-// 	const accounts = msalInstance.getAllAccounts();
-// 	const account = accounts && accounts.length > 0 && accounts[0];
-
-// 	const resp = await msalInstance.acquireTokenSilent({
-// 		...loginRequest,
-// 		account
-// 	});
-// 	return resp;
-// };
-
-export const showUnAuthorizedAccessMsg = () => {
-	Toast.add({
-		type: 'danger',
-		message: 'UnAurthorized',
-		dismiss: {
-			showIcon: true,
-			duration: 6000,
-			pauseOnHover: true
+		weekStartEndDay.push(getMomentDate(1, day));
+		for (let i = 0; i < count; i++) {
+			weekStartEndDay.push(getMomentDate(day + 1, Math.min((day += 7), last)));
 		}
+		return weekStartEndDay;
+	}
+
+	const month = moment([ year, monthIndex - 1 ]);
+	const weekList = weeks(month);
+	let weeksList = [];
+	weekList.forEach((date) => {
+		let obj = {
+			U_VALUS: `${date.startDate.format('YYYY-MM-DD')} to ${date.endDate.format('YYYY-MM-DD')}`,
+			U_Desc: `${date.startDate.format('DD-MMM')} to ${date.endDate.format('DD-MMM')}`
+		};
+		weeksList.push(obj);
 	});
+	return weeksList;
 };

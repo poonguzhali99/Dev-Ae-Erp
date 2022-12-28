@@ -36,10 +36,7 @@ import {
 } from '../../../services/academic-details/action';
 import { constants } from '../../../utils/constants';
 import { useRef } from 'react';
-import axios from 'axios';
-import TableContent from './TableContent';
 import AntSidebar from '../../../components/ant-sidebar';
-import { QuestionCircleOutlined } from '@ant-design/icons';
 
 const MarksEntryStatus = () => {
 	const {
@@ -126,140 +123,6 @@ const MarksEntryStatus = () => {
 						render: (text) => <a className="p-1">{text}</a>
 					});
 				}
-				//  else {
-				// 	let title = key + '\n (Max Marks:' + firstObj[key] + ')';
-				// 	if (key != 'key')
-				// 		tempColumn.push({
-				// 			title: key,
-				// 			dataIndex: key,
-				// 			align: 'center',
-				// 			width: 180
-				// 			// render: (_, record) => {
-				// 			// 	return (
-				// 			// 		<Form.Item
-				// 			// 			name={key + record.key}
-				// 			// 			rules={[
-				// 			// 				{
-				// 			// 					// required: isEditing(record) && true,
-				// 			// 					message: '',
-				// 			// 					validator: (_, value) => {
-				// 			// 						// console.log('value', value);
-				// 			// 						if (_isEmpty(value)) {
-				// 			// 							return Promise.reject(
-				// 			// 								new Error('Marks entered should not be empty')
-				// 			// 							);
-				// 			// 						} else if (value > parseInt(firstObj[key]) || value < 0) {
-				// 			// 							return Promise.reject(
-				// 			// 								new Error('Price must be greater than zero!')
-				// 			// 							);
-				// 			// 						} else if (
-				// 			// 							value.split('.').length > 1 &&
-				// 			// 							value.split('.')[1].length > 1
-				// 			// 						) {
-				// 			// 							return Promise.reject(
-				// 			// 								new Error(
-				// 			// 									'Only single digits are allowed after the decimal point'
-				// 			// 								)
-				// 			// 							);
-				// 			// 						} else {
-				// 			// 							return Promise.resolve();
-				// 			// 						}
-				// 			// 					}
-				// 			// 				}
-				// 			// 			]}
-				// 			// 		>
-				// 			// 			<Input
-				// 			// 				maxLength={4}
-				// 			// 				name={key + record.key}
-				// 			// 				ref={inputRef}
-				// 			// 				className="text-center"
-				// 			// 				defaultValue={record[key]}
-				// 			// 				disabled={!isEditing(record)}
-				// 			// 				// onChange={(e) => {
-				// 			// 				// 	if (e.target.value > parseInt(firstObj[key]) || e.target.value < 0) {
-				// 			// 				// 		console.log('Error');
-				// 			// 				// 		inputRef.current.focus({
-				// 			// 				// 			cursor: 'all'
-				// 			// 				// 		});
-				// 			// 				// 		// notification.error({
-				// 			// 				// 		// 	message: 'Invalid Input',
-				// 			// 				// 		// 	description:
-				// 			// 				// 		// 		'Marks entered should not be greater than Max Marks'
-				// 			// 				// 		// });
-				// 			// 				// 		// e.preventDefault();
-				// 			// 				// 		return (e.target.value = '');
-				// 			// 				// 	}
-				// 			// 				// }}
-				// 			// 				onKeyPress={(event) => {
-				// 			// 					// let decimalRegax = /^[0-9ABMLEXNabmlexn.]+\.?[0-9]*$/;
-				// 			// 					if (!/[0-9ABMLEXN.][\.\d]*(,\d+)?(\d*)/.test(event.key)) {
-				// 			// 						// if (decimalRegax.test(event.key) == false) {
-
-				// 			// 						event.preventDefault();
-				// 			// 					}
-				// 			// 				}}
-				// 			// 				onBlur={async (e) => {
-				// 			// 					let val = e.target.value;
-				// 			// 					// if (isNaN(parseInt(val))) {
-				// 			// 					// 	if (val != 'AB' && val != 'ML' && val != 'EX' && val != 'NA') {
-				// 			// 					// 		form.setFieldValue(key + record.key, '');
-				// 			// 					// 	} else {
-				// 			// 					// 		try {
-				// 			// 					// 			// const row = await form.validateFields();
-				// 			// 					// 			const newData = [ ...activeRows ];
-				// 			// 					// 			const index = newData.findIndex(
-				// 			// 					// 				(item) => record.key === item['key']
-				// 			// 					// 			);
-				// 			// 					// 			let selectedObj = newData[index];
-				// 			// 					// 			selectedObj[key] = val;
-				// 			// 					// 			newData[index] = selectedObj;
-				// 			// 					// 			setActiveRows(newData);
-				// 			// 					// 			console.log('newData', newData);
-				// 			// 					// 		} catch (errInfo) {
-				// 			// 					// 			console.log('Validate Failed:', errInfo);
-				// 			// 					// 		}
-				// 			// 					// 	}
-				// 			// 					// }
-				// 			// 					if (val > parseInt(firstObj[key])) {
-				// 			// 						console.log('Error');
-				// 			// 						form.setFieldValue(key + record.key, '');
-				// 			// 						notification.error({
-				// 			// 							message: 'Invalid Input',
-				// 			// 							description:
-				// 			// 								'Marks entered should not be greater than Max Marks'
-				// 			// 						});
-				// 			// 					} else if (val.split('.').length > 1 && val.split('.')[1].length > 1) {
-				// 			// 						form.setFieldValue(key + record.key, '');
-				// 			// 						notification.error({
-				// 			// 							message: 'Invalid Input',
-				// 			// 							description:
-				// 			// 								'Only single digits are allowed after the decimal point'
-				// 			// 						});
-				// 			// 					} else {
-				// 			// 						try {
-				// 			// 							// const row = await form.validateFields();
-				// 			// 							const newData = [ ...activeRows ];
-				// 			// 							const index = newData.findIndex(
-				// 			// 								(item) => record.key === item['key']
-				// 			// 							);
-				// 			// 							let selectedObj = newData[index];
-				// 			// 							selectedObj[key] = val;
-				// 			// 							newData[index] = selectedObj;
-				// 			// 							setActiveRows(newData);
-				// 			// 							console.log('newData', newData);
-				// 			// 						} catch (errInfo) {
-				// 			// 							console.log('Validate Failed:', errInfo);
-				// 			// 						}
-				// 			// 					}
-				// 			// 				}}
-				// 			// 				style={{ width: 70 }}
-				// 			// 				// suffix={<Spin spinning={cellLoader} size="small" />}
-				// 			// 			/>
-				// 			// 		</Form.Item>
-				// 			// 	);
-				// 			// }
-				// 		});
-				// }
 			});
 			setColumn(tempColumn);
 		}
@@ -647,7 +510,6 @@ const MarksEntryStatus = () => {
 					</Formik> */}
 					{!_isEmpty(assesmentList) ? (
 						<Card
-							className="mt-2"
 							title={
 								<div className="d-flex justify-content-between align-items-center">
 									<div>Assesment Marks Entry</div>

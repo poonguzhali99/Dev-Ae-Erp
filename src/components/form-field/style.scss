@@ -64,6 +64,42 @@
 		margin: 0px;
 	}
 }
+.ant-input-number {
+	width: 100%;
+}
+.ant-input-number-affix-wrapper {
+	width: 100%;
+}
+.ant-form-item-label {
+	label {
+		font-weight: 600;
+		font-size: medium;
+	}
+}
+.ant-checkbox-wrapper {
+	span {
+		font-weight: 600;
+		font-size: medium;
+	}
+}
+.ant-upload.ant-upload-select-picture-card {
+	width: 160px;
+	height: 204px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	// padding: 5px;
+	border-radius: 8px;
+	img {
+		border-radius: 8px;
+		height: 100%;
+	}
+	.close-icon {
+		position: absolute;
+		bottom: 5px;
+		right: 20px;
+		font-size: small;
+	}
+}
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,

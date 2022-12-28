@@ -1,0 +1,57 @@
+.teacher-mapping {
+	position: relative;
+	margin-top: 0px;
+	padding: 10px;
+	height: calc(calc(var(--vh, 1vh) * 100) - 115px);
+	// width: 80%;
+	.search-card {
+		height: inherit;
+		// position: fixed;
+	}
+	.ant-spin-nested-loading {
+		width: -webkit-fill-available;
+	}
+	.ant-card {
+		// border-color: $additional;
+		border-radius: 8px;
+		.ant-card-body {
+			padding: 10px;
+		}
+
+		.ant-card-head {
+			background-color: $cardHeader;
+			border-bottom-color: $warning;
+			color: $dark;
+			font-weight: 600;
+			border-top-left-radius: 8px;
+			border-top-right-radius: 8px;
+			padding: 5px;
+			min-height: 0;
+			.ant-card-head-title {
+				padding: 0;
+			}
+		}
+	}
+	.ant-typography ul li {
+		padding: 10px;
+	}
+	.ant-space-item .ant-btn {
+		font-weight: 600;
+		font-size: small;
+		// padding: 0px;
+	}
+	.ant-float-btn {
+		right: 10px;
+		bottom: 10px;
+		height: 70px;
+		width: 70px;
+		.ant-float-btn-content {
+			font-weight: 600;
+			font-size: large;
+			// color: rgba($color: $primary, $alpha: 1.0);
+		}
+	}
+}
+.ant-modal-wrap .antd-modal-right .ant-modal-content .ant-modal-body {
+	overflow-y: auto;
+}

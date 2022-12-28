@@ -17,11 +17,7 @@ module.exports = merge(base, {
 			process: {
 				env: {
 					API_URL: JSON.stringify(config.DEVELOPMENT.API_URL),
-					SOCKET_URL: JSON.stringify(config.DEVELOPMENT.SOCKET_URL),
-					APP_ID: JSON.stringify(config.DEVELOPMENT.APP_ID),
-					IS_LOCAL: true,
-					STRIPE_CLIENT_ID: JSON.stringify(config.DEVELOPMENT.STRIPE_CLIENT_ID),
-					STRIPE_PUBLISHABLE_KEY: JSON.stringify(config.DEVELOPMENT.STRIPE_PUBLISHABLE_KEY)
+					IS_LOCAL: true
 				}
 			}
 		})

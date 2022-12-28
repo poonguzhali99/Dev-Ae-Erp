@@ -1,18 +1,15 @@
-.assesment {
+.admission {
 	position: relative;
 	margin-top: 0px;
 	// width: 80%;
 	.search-card {
 		height: inherit;
-		// position: fixed;
 	}
 	.ant-spin-nested-loading {
 		width: -webkit-fill-available;
 	}
 	.ant-card {
-		// border-color: $additional;
 		border-radius: 8px;
-
 		.ant-card-head {
 			background-color: $cardHeader;
 			border-bottom-color: $warning;

@@ -1,6 +1,8 @@
-.assesment {
+.attendance {
 	position: relative;
 	margin-top: 0px;
+	padding: 10px;
+	height: calc(calc(var(--vh, 1vh) * 100) - 115px);
 	// width: 80%;
 	.search-card {
 		height: inherit;
@@ -27,25 +29,7 @@
 			}
 		}
 	}
-	.ant-form-item {
-		margin-bottom: 0px;
+	.ant-typography ul li {
+		padding: 10px;
 	}
-	.ant-input-affix-wrapper > input.ant-input {
-		text-align: center;
-	}
-	.lengend {
-		position: absolute;
-	}
-	.ant-tooltip-inner {
-		background-color: $primary !important;
-	}
-	.notes {
-		position: absolute;
-	}
-}
-
-.editable-row .ant-form-item-explain {
-	position: absolute;
-	top: 100%;
-	font-size: 12px;
 }

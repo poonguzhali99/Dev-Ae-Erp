@@ -691,7 +691,6 @@ const MarksEntry = () => {
 					</Formik> */}
 					{!_isEmpty(assesmentList) ? (
 						<Card
-							className="mt-2"
 							title={
 								<div className="d-flex justify-content-between align-items-center">
 									<div>Assesment Marks Entry</div>

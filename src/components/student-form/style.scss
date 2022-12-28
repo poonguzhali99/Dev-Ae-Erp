@@ -1,0 +1,75 @@
+.student-form {
+	height: calc(calc(var(--vh, 1vh) * 100) - 195px) !important;
+	overflow: auto;
+	.ant-col {
+		padding: 5px;
+	}
+	.ant-divider {
+		margin: 0px;
+	}
+
+	.details-row {
+		// justify-content: space-between;
+		font-weight: 400;
+		border: .5px solid;
+		border-color: $muted;
+		border-radius: 3px;
+		width: 100%;
+		.label-text {
+			font-weight: 800;
+		}
+		.ant-col {
+			padding: 10px 5px;
+		}
+	}
+
+	.ant-avatar {
+		width: 170px;
+		height: 190px;
+		line-height: 190px;
+		background-color: transparent;
+		border: .5px solid;
+		border-color: $muted;
+		border-radius: 10px;
+
+		.ant-avatar-string {
+			font-size: 85px;
+			font-weight: 600;
+			color: $additional;
+		}
+	}
+	.student-card {
+		height: calc(calc(var(--vh, 1vh) * 100) - 365px) !important;
+		overflow: auto;
+	}
+	.ant-collapse {
+		border-radius: 8px !important;
+		.ant-collapse-header {
+			background-color: $additional;
+			border-radius: 8px !important;
+			font-weight: 600;
+			color: $white !important;
+		}
+		.ant-collapse-item {
+			border-radius: 8px !important;
+		}
+		.ant-collapse-content-box {
+			padding: 10px;
+		}
+	}
+	.ant-card {
+		border-radius: 9px;
+		border-color: rgba($color: $additional, $alpha: .9);
+		.ant-card-head {
+			border-top-left-radius: 8px;
+			border-top-right-radius: 8px;
+			background-color: rgba($color: $additional, $alpha: .9);
+			padding: 0px 0px;
+			color: $white;
+			font-weight: 600;
+			.ant-card-head-title {
+				padding-left: 20px;
+			}
+		}
+	}
+}

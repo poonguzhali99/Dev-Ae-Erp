@@ -1,12 +1,27 @@
 import React from 'react';
 import { Field } from 'formik';
 import { InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
-import { Input, Form, Select, Cascader, Switch, Tag, Checkbox } from 'antd';
+import {
+	Input,
+	Form,
+	Select,
+	Cascader,
+	Switch,
+	Tag,
+	Checkbox,
+	InputNumber,
+	notification,
+	Upload,
+	Button,
+	DatePicker
+} from 'antd';
 
 import _isEmpty from 'lodash/isEmpty';
 import _omit from 'lodash/omit';
 import _get from 'lodash/get';
 import './style.scss';
+import { CloseOutlined, DeleteFilled, DeleteTwoTone } from '@ant-design/icons';
+import ImgCrop from 'antd-img-crop';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -59,6 +74,8 @@ const generateComponent = (data) => {
 		mode,
 		showNow,
 		minuteStep,
+		prefix,
+		disabledDate,
 		...restProps
 	} = data;
 	onChange
@@ -187,6 +204,82 @@ const generateComponent = (data) => {
 				/>
 			</Form.Item>
 		);
+	} else if (type == 'image-upload') {
+		const getBase64 = (file) =>
+			new Promise((resolve, reject) => {
+				const reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onload = () => resolve(reader.result);
+				reader.onerror = (error) => reject(error);
+			});
+
+		return (
+			<Form.Item
+				label={label}
+				validateStatus={validateErrorStatus()}
+				required={required}
+				help={error && errors[name]}
+			>
+				<ImgCrop rotate aspect={1.5 / 2}>
+					<Upload
+						listType="picture-card"
+						showUploadList={false}
+						beforeUpload={(file) => {
+							const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+							const isLt2M = file.size / 1024 / 1024 < 0.15;
+							if (!isJpgOrPng) {
+								notification.error({
+									message: 'Invalid Format',
+									description: 'You can only upload JPG/PNG file!'
+								});
+							} else if (!isLt2M) {
+								notification.error({
+									message: 'Invalid Size',
+									description: 'Image must smaller than 200KB!'
+								});
+							}
+							return isJpgOrPng && isLt2M;
+						}}
+						onChange={(info) => {
+							getBase64(info.file.originFileObj)
+								.then(async (file) => {
+									let base64Code = file.split(',')[1];
+									await form.setFieldValue(field.name, base64Code);
+									handleOnChange && handleOnChange(base64Code);
+								})
+								.catch((e) => {});
+						}}
+					>
+						{field.value ? (
+							<div>
+								<img
+									src={'data:image/png;base64,' + field.value}
+									style={{
+										width: '100%'
+									}}
+								/>
+							</div>
+						) : (
+							<div className="p-2">
+								Upload Passport photo PNG/JPEG format (max: 200Kb) 35 mm (W) x 45 mm (H)
+							</div>
+						)}
+					</Upload>
+				</ImgCrop>
+				{/* {field.value && (
+					<Button
+						danger
+						size="small"
+						className="close-icon"
+						onClick={async () => {
+							await form.setFieldValue(field.name, '');
+						}}
+					>
+						Remove Photo
+					</Button>
+				)} */}
+			</Form.Item>
+		);
 	} else if (type == 'checkbox') {
 		return (
 			<Form.Item label={label} validateStatus={validateErrorStatus()} help={error && errors[name]}>
@@ -200,6 +293,33 @@ const generateComponent = (data) => {
 				>
 					{customLabel}
 				</Checkbox>
+			</Form.Item>
+		);
+	} else if (type == 'date') {
+		return (
+			<Form.Item
+				label={label}
+				required={required}
+				validateStatus={errors[name] ? 'error' : 'success'}
+				help={errors[name]}
+			>
+				<DatePicker
+					{...field}
+					size={size}
+					format="DD/MM/YYYY"
+					disabledDate={disabledDate || null}
+					defaultValue={defaultValue}
+					placeholder={placeholder}
+					value={field.value}
+					ranges={ranges}
+					onChange={(value) => {
+						form.setFieldValue(field.name, value);
+						handleOnChange && handleOnChange(value);
+					}}
+					onBlur={() => {
+						form.setFieldTouched(name, true);
+					}}
+				/>
 			</Form.Item>
 		);
 	} else if (type == 'dateRange') {
@@ -227,49 +347,39 @@ const generateComponent = (data) => {
 				/>
 			</Form.Item>
 		);
-	} else if (type == 'multiSelect') {
-		let renderedValue = !_isEmpty(field.value)
-			? field.value.map((field) => {
-					if (typeof field === 'object' && field[identy]) {
-						return field[identy];
-					} else return field;
-				})
-			: [];
-		let filteredOptions = field.value
-			? list.filter((list) => !renderedValue.includes(list[identy] ? list[identy] : list))
-			: list;
-		let optionList = filteredOptions.map((options, index) => {
-			return (
-				<Option
-					key={options[identy] ? options[identy] : index}
-					option={options}
-					label={options[displayName] ? options[displayName] : ''}
-					value={options[identy] ? options[identy] : options}
-				>
-					{customMenuRenderer ? (
-						customMenuRenderer(options)
-					) : customRenderer ? (
-						customRenderer(options)
-					) : (
-						options[displayName]
-					)}
-				</Option>
-			);
+	} else if (type == 'multi-select') {
+		let findObjectLabel;
+		for (let objKey in list[0]) {
+			if (list[0].hasOwnProperty(objKey)) {
+				if (objKey == displayName) findObjectLabel = objKey;
+			}
+		}
+		// list.sort((a, b) => {
+		// 	var labelA, labelB;
+		// 	if (findObjectLabel) {
+		// 		for (let val in a) {
+		// 			if (val == displayName) {
+		// 				labelA = a[displayName] && a[displayName].toLowerCase();
+		// 				labelB = b[displayName] && b[displayName].toLowerCase();
+		// 				if (labelA < labelB) return -1;
+		// 			}
+		// 		}
+		// 	} else {
+		// 		labelA = a.toLowerCase();
+		// 		labelB = b.toLowerCase();
+		// 		if (labelA < labelB) return -1;
+		// 	}
+		// });
+		let optionList = list.map((data, index) => {
+			return {
+				label: displayName ? data[displayName] : data,
+				value: keyword ? data[keyword] : data
+			};
 		});
-		const tagRender = (props) => {
-			const { value, onClose, closable } = props;
-			let tagValue = list.map((list) => {
-				if (value === list[identy] || value === list) {
-					return list[displayName] ? list[displayName] : list;
-				}
-			});
-
-			return (
-				<Tag key={value} closable={closable} onClose={onClose}>
-					{tagValue}
-				</Tag>
-			);
-		};
+		optionList.unshift({
+			label: 'Select All',
+			value: 'all'
+		});
 
 		return (
 			<div id="multi-select">
@@ -280,51 +390,43 @@ const generateComponent = (data) => {
 					help={error && errors[name]}
 				>
 					<Select
-						name={field.name}
-						dropdownClassName={`${customMenuRenderer && !_isEmpty(filteredOptions) && 'menu-item'}`}
-						mode={mode}
-						multiple={multiple}
-						loading={isLoading}
+						{...field}
+						mode="multiple"
+						className="multi-select"
+						maxTagCount={5}
+						showSearch
+						allowClear={false}
 						disabled={disabled}
-						value={renderedValue}
-						placeholder={placeholder}
-						tagRender={tagRender}
-						optionLabelProp="label"
 						showArrow={true}
-						showSearch={true}
-						getPopupContainer={() => document.getElementById('multi-select')}
-						optionFilterProp="children"
-						filterOption={(keyValue, list) => {
-							const { option } = list;
-							return !_isEmpty(filterArray)
-								? (filterArray.includes('email') &&
-										option.email &&
-										option.email.toLowerCase().includes(keyValue.toLowerCase())) ||
-									(filterArray.includes('firstName') &&
-										option.firstName &&
-										option.firstName.toLowerCase().includes(keyValue.toLowerCase())) ||
-									(filterArray.includes('lastName') &&
-										option.lastName &&
-										option.lastName.toLowerCase().includes(keyValue.toLowerCase())) ||
-									(filterArray.includes('phone') &&
-										option.phone &&
-										option.phone.toLowerCase().includes(keyValue.toLowerCase()))
-								: list[displayName] === undefined
-									? option[displayName] === undefined
-										? option.toLowerCase().includes(keyValue.toLowerCase())
-										: option[displayName].toLowerCase().includes(keyValue.toLowerCase())
-									: list[displayName].toLowerCase().includes(keyValue.toLowerCase());
+						getPopupContainer={() => document.getElementById('select')}
+						placeholder={!hideDefaultOption && <React.Fragment>{placeholder}</React.Fragment>}
+						optionFilterProp="label"
+						filterOption={(key, list) => {
+							return list.label.toString().toLowerCase().indexOf(key.toString().toLowerCase()) >= 0;
 						}}
-						onChange={(value) => {
-							form.setFieldValue(name, value);
-							handleOnChange && handleOnChange(value);
+						defaultValue={field.value || ''}
+						// onSearch={(value) => {
+						// 	// form.setFieldValue(name, value);
+						// }}
+						onChange={async (value) => {
+							console.log('value', value);
+							if (value.includes('all')) {
+								let allValue = optionList.map((opt) => opt.value);
+								allValue.shift();
+								await form.setFieldValue(name, allValue);
+								handleOnChange && handleOnChange(allValue);
+								console.log('allValue', allValue);
+							} else {
+								await form.setFieldValue(name, value);
+								handleOnChange && handleOnChange(value);
+							}
 						}}
 						onBlur={async ({ target: { value } }) => {
-							form.setFieldTouched(name, true);
+							await form.setFieldTouched(field.name, true);
+							handleOnBlur && handleOnBlur(value);
 						}}
-					>
-						{optionList}
-					</Select>
+						options={optionList}
+					/>
 				</Form.Item>
 			</div>
 		);
@@ -349,6 +451,35 @@ const generateComponent = (data) => {
 						handleOnChange && handleOnChange(value);
 					}}
 					onBlur={async ({ target: { value } }) => {
+						await form.setFieldTouched(name, true);
+						handleOnBlur && handleOnBlur(value);
+					}}
+				/>
+			</Form.Item>
+		);
+	} else if (type == 'number') {
+		return (
+			<Form.Item
+				label={label}
+				validateStatus={validateErrorStatus()}
+				required={required}
+				help={error && errors[name]}
+			>
+				<InputNumber
+					{...field}
+					name={field.name}
+					value={field.value}
+					type={type}
+					prefix={prefix}
+					placeholder={placeholder}
+					disabled={disabled}
+					maxLength={maxLength ? maxLength : ''}
+					autoFocus={autoFocus}
+					onChange={async (value) => {
+						await form.setFieldValue(field.name, value);
+						handleOnChange && handleOnChange(value);
+					}}
+					onBlur={async (value) => {
 						await form.setFieldTouched(name, true);
 						handleOnBlur && handleOnBlur(value);
 					}}

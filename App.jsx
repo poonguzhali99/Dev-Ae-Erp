@@ -23,7 +23,7 @@ const ContactUs = lazy(() => import('./src/pages/public/static-content/terms'));
 // Others
 import { routes } from './routes';
 
-import 'antd/dist/antd.variable.min.css';
+// import 'antd/dist/antd.variable.min.css';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './src/assets/common_styles/antdOverrideStyles.scss';
 import 'assets/common_styles/fluent-ui.scss';
@@ -79,7 +79,8 @@ const App = React.memo(() => {
 			let vh = window.innerHeight * 0.01;
 			document.documentElement.style.setProperty('--vh', `${vh}px`);
 		});
-		getAcademicYear();
+		// getAcademicYear();
+		dispatch(getAcademicYear());
 		validateAuth();
 	}, []);
 	const validateAuth = () => {
@@ -97,6 +98,14 @@ const App = React.memo(() => {
 			dispatch(logOut());
 		}
 	};
+	useEffect(
+		() => {
+			if (Array.isArray(academicYearList) && academicYearList.length > 0) {
+				dispatch(setActiveAcademicYear(academicYearList[1].U_VALUS));
+			}
+		},
+		[ academicYearList ]
+	);
 
 	useEffect(
 		() => {

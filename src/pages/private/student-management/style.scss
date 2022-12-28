@@ -1,4 +1,4 @@
-.assesment {
+.student-management {
 	position: relative;
 	margin-top: 0px;
 	// width: 80%;
@@ -41,6 +41,10 @@
 	}
 	.notes {
 		position: absolute;
+	}
+	a {
+		text-decoration: underline;
+		color: $additional;
 	}
 }
 

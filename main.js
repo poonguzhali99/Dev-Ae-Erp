@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client';
 import './fontawesome';
 
 import store, { persistor } from 'store';
-import App from './App.jsx';
+import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 
 const container = document.getElementById('app');
