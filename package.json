@@ -2,12 +2,12 @@
 	"name": "ae-erp-portal",
 	"version": "1.0.0",
 	"description": "Application for schools & colleges",
-	"main": "index.js",
+	"main": "index.html",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "webpack-dev-server --hot --config ./webpack/webpack.local.config.js",
 		"prod-build": "webpack --config ./webpack/webpack.prod.config.js",
-		"dev-build": "webpack --config ./webpack/webpack.dev.config.js"
+		"build": "webpack --config ./webpack/webpack.dev.config.js"
 	},
 	"keywords": [ "reactjs", "chat", "videochat" ],
 	"author": "Srinivasan S",
