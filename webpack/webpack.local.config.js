@@ -1,3 +1,4 @@
+const path = require('path');
 const { merge } = require('webpack-merge');
 const webpack = require('webpack');
 const base = require('./webpack.base.config');
@@ -7,11 +8,13 @@ module.exports = merge(base, {
 	mode: 'development',
 	devServer: {
 		open: true,
-		inline: true,
 		historyApiFallback: true,
-		https: true,
-		server: 'https'
+		server: 'https',
+		static: {
+			directory: path.join(__dirname, 'dist')
+		}
 	},
+
 	plugins: [
 		new webpack.DefinePlugin({
 			process: {

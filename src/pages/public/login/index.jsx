@@ -66,23 +66,23 @@ const Login = () => {
 						callback: async ({ status, data }) => {
 							if (status === 200) {
 								if (data.Userrole != null) {
-									// if (data.Userbranch == pathName.replace('/', '')) {
-									save('session', values.EmailId, { secure: true });
-									save('userdetails', data);
-									setLoader(false);
-									dispatch(logIn(values.EmailId));
-									dispatch(getBranch());
-									dispatch(setActiveBranch(data.Userbranch));
+									if (data.Userbranch == pathName.replace('/', '')) {
+										save('session', values.EmailId, { secure: true });
+										save('userdetails', data);
+										setLoader(false);
+										dispatch(logIn(values.EmailId));
+										dispatch(getBranch());
+										dispatch(setActiveBranch(data.Userbranch));
+									} else {
+										setLoader(false);
+										setloginError(true);
+										setErrorMessage('Select Correct branch to login');
+									}
 								} else {
 									setLoader(false);
 									setloginError(true);
-									setErrorMessage('Select Correct branch to login');
+									setErrorMessage('Invalid Email / Password');
 								}
-								// } else {
-								// 	setLoader(false);
-								// 	setloginError(true);
-								// 	setErrorMessage('Invalid Email / Password');
-								// }
 							}
 						}
 					});

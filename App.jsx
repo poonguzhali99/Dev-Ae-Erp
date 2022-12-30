@@ -143,7 +143,7 @@ const App = React.memo(() => {
 								{routes.map((route, index) => (
 									<Route key={index} path={route.path} element={<route.element />} />
 								))}
-								<Route path="/" element={<Navigate to="/Dashboard" replace />} />
+								<Route path="*" element={<Navigate to="/Dashboard" replace />} />
 							</Routes>
 						</div>
 					</Content>
@@ -163,8 +163,7 @@ const App = React.memo(() => {
 						<Route path="/About" element={<AboutUs />} />
 						<Route path="/Privacy" element={<Privacy />} />
 						<Route path="/Terms" element={<Terms />} />
-						{/* <Route index path="*" element={<Login />} /> */}
-						<Route path="/" element={<Navigate to="/Welcome" replace />} />
+						<Route path="*" element={<Navigate to="/Welcome" replace />} />
 					</Routes>
 				</Content>
 			</Layout>
