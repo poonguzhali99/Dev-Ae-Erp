@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment, Suspense, lazy, useCallback } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Switch, Navigate } from 'react-router-dom';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import _isEmpty from 'lodash/isEmpty';
 import _get from 'lodash/get';
@@ -143,7 +143,7 @@ const App = React.memo(() => {
 								{routes.map((route, index) => (
 									<Route key={index} path={route.path} element={<route.element />} />
 								))}
-								<Route path="*" element={<Navigate to="/Dashboard" replace />} />
+								<Route path="/" element={<Navigate to="/Dashboard" replace />} />
 							</Routes>
 						</div>
 					</Content>
@@ -163,27 +163,24 @@ const App = React.memo(() => {
 						<Route path="/About" element={<AboutUs />} />
 						<Route path="/Privacy" element={<Privacy />} />
 						<Route path="/Terms" element={<Terms />} />
-						<Route path="*" element={<Navigate to="/Welcome" replace />} />
+						{/* <Route index path="*" element={<Login />} /> */}
+						<Route path="/" element={<Navigate to="/Welcome" replace />} />
 					</Routes>
 				</Content>
 			</Layout>
 		);
 	return (
-		<React.Fragment>
-			<Fragment>
-				<ConfigProvider>
-					<Suspense
-						fallback={
-							<div className=" d-flex justify-content-center app-spin">
-								<Spin size="large" spinning={true} />
-							</div>
-						}
-					>
-						{renderSection()}
-					</Suspense>
-				</ConfigProvider>
-			</Fragment>
-		</React.Fragment>
+		<ConfigProvider>
+			<Suspense
+				fallback={
+					<div className=" d-flex justify-content-center app-spin">
+						<Spin size="large" spinning={true} />
+					</div>
+				}
+			>
+				{renderSection()}
+			</Suspense>
+		</ConfigProvider>
 	);
 });
 

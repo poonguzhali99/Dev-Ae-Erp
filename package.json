@@ -2,14 +2,18 @@
 	"name": "ae-erp-portal",
 	"version": "1.0.0",
 	"description": "Application for schools & colleges",
-	"main": "index.html",
+	"main": "main.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "webpack-dev-server --hot --config ./webpack/webpack.local.config.js",
 		"prod-build": "webpack --config ./webpack/webpack.prod.config.js",
 		"build": "webpack --config ./webpack/webpack.dev.config.js"
 	},
-	"keywords": [ "reactjs", "chat", "videochat" ],
+	"keywords": [
+		"reactjs",
+		"chat",
+		"videochat"
+	],
 	"author": "Srinivasan S",
 	"license": "ISC",
 	"dependencies": {
@@ -66,7 +70,9 @@
 		"css-loader": "^6.7.1",
 		"esbuild-loader": "^2.19.0",
 		"html-webpack-plugin": "^5.5.0",
+		"mini-css-extract-plugin": "^2.7.2",
 		"node-sass": "^7.0.1",
+		"purgecss-webpack-plugin": "^5.0.0",
 		"sass-loader": "^13.0.0",
 		"sass-resources-loader": "^2.2.5",
 		"style-loader": "^3.3.1",

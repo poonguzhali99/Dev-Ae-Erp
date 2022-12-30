@@ -7,9 +7,9 @@ module.exports = merge(base, {
 	mode: 'development',
 	devServer: {
 		open: true,
-		// inline: true,
+		inline: true,
 		historyApiFallback: true,
-		// https: true,
+		https: true,
 		server: 'https'
 	},
 	plugins: [

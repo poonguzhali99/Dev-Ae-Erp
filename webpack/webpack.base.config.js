@@ -1,10 +1,13 @@
 const path = require('path');
+const glob = require('glob');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const PurgecssPlugin = require('purgecss-webpack-plugin');
 
 module.exports = {
 	entry: {
-		app: [ './main.js' ]
+		app: './main.js'
 	},
 	plugins: [
 		new CleanWebpackPlugin({ cleanOnceBeforeBuildPatterns: [ 'dist/*' ] }),
@@ -12,16 +15,19 @@ module.exports = {
 			template: 'index.html',
 			favicon: 'fav.png' //Specify the path of the favicon here
 		})
+		// new MiniCssExtractPlugin({
+		// 	filename: '[name].css'
+		// })
+		// new PurgecssPlugin({
+		// 	paths: glob.sync(path.resolve(__dirname, '../src/**/*'), { nodir: true })
+		// })
 	],
 	output: {
 		path: path.resolve(__dirname, '../dist'),
 		filename: '[name].[chunkhash].js'
-		// publicPath: '/'
-		// clean: true
+		// publicPath: '../dist/'
 	},
-	// devServer: {
-	// 	historyApiFallback: true
-	// },
+
 	module: {
 		rules: [
 			{
