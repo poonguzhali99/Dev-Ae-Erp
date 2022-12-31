@@ -7,7 +7,8 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "webpack-dev-server --hot --config ./webpack/webpack.local.config.js",
 		"prod-build": "webpack --config ./webpack/webpack.prod.config.js",
-		"build": "webpack --config ./webpack/webpack.dev.config.js"
+		"build": "webpack --config ./webpack/webpack.dev.config.js",
+		"postbuild": "node ./iisConfig/copyIISConfig.js"
 	},
 	"keywords": [ "reactjs", "chat", "videochat" ],
 	"author": "Srinivasan S",
@@ -28,9 +29,12 @@
 		"draft-convert": "^2.1.12",
 		"draft-js": "^0.11.7",
 		"formik": "^2.2.9",
+		"fs-extra": "^11.1.0",
+		"i": "^0.3.7",
 		"lodash": "^4.17.21",
 		"memoize-one": "^6.0.0",
 		"moment": "^2.29.4",
+		"npm": "^9.2.0",
 		"prop-types": "^15.8.1",
 		"react": "^18.2.0",
 		"react-compound-timer": "^1.2.0",
